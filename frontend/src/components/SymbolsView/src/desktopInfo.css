@@ -1,3 +1,7 @@
+.desktopInfo {
+  overflow: hidden;
+}
+
 @media (max-width: 1023px) {
   .desktopInfo {
     display: none;

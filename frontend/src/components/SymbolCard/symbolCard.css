@@ -1,11 +1,27 @@
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+  cursor: pointer;
+  transition: box-shadow 0.3s, scale 0.3s;
 }
 
-.symbolCard__shake {
-  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+.symbolCard--active {
+  box-shadow: 0 0 15px 0 var(--colorDark);
+  scale: 1.02;
+}
+
+.symbolCard--nonactive {
+  scale: 0.98;
+}
+
+.symbolCard--green {
+  animation: greenShadow 1s forwards;
+}
+
+.symbolCard--red {
+  animation: redShadow 1s forwards;
+}
+
+.symbolCard--shake {
+  animation: greenShadow 1s forwards, shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
 @keyframes shake {
@@ -34,5 +50,17 @@
   60%,
   70% {
     transform: translateX(6px);
+  }
+}
+
+@keyframes greenShadow {
+  20% {
+    box-shadow: 0 0 15px 0 green;
+  }
+}
+
+@keyframes redShadow {
+  20% {
+    box-shadow: 0 0 15px 0 red;
   }
 }

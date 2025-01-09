@@ -10,9 +10,11 @@ type PriceChartProps = {
 
 const PriceChart = ({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     if (symbolId) {
-      dispatch(fetchPriceHistory(symbolId));
+      const promise = dispatch(fetchPriceHistory(symbolId));
+      return () => promise?.abort();
     }
   }, [dispatch, symbolId]);
 
@@ -20,18 +22,19 @@ const PriceChart = ({ symbolId }: PriceChartProps) => {
   const data = useAppSelector(selectors.selectPriceHistory);
   const symbolInfo = useAppSelector(selectors.selectSymbolInfo);
 
-  if (apiState.loading && symbolId !== null)
+  if (apiState.loading && symbolId !== null) {
     return (
       <div className="priceChart">
         <Loading />
       </div>
     );
+  }
   if (apiState.error) return <div className="priceChart">Failed to get price history!</div>;
   if (!symbolId) return <div className="priceChart">Select stock</div>;
   return (
     <div className="priceChart">
       <div>{symbolInfo}</div>
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="98%" height="100%">
         <LineChart data={data.map((e) => ({ ...e, time: new Date(e.time).toLocaleTimeString() }))}>
           <Line type="monotone" dataKey="price" stroke="#8884d8" dot={false} />
           <XAxis dataKey="time" />

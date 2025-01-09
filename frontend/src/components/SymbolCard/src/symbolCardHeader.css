@@ -1,0 +1,15 @@
+.symbolCard__header {
+  position: relative;
+  background-color: var(--colorDark);
+  color: var(--colorWhite);
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 8px;
+}
+
+.symbolCard__arrowIcon {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 40px;
+}

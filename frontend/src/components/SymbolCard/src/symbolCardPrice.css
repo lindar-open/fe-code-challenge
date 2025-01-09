@@ -1,0 +1,14 @@
+.symbolCard__price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.symbolCard__price span {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.symbolCard__price b {
+  font-size: 24px;
+}

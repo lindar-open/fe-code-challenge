@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/store/index';
 
-type Stock = {
+export type Stock = {
   symbol: string;
   companyName: string;
   industry: string;
