@@ -17,6 +17,7 @@
   --colorWhite: #fdfdfd;
 
   color: var(--colorDark);
+  overflow: hidden;
 }
 
 a {
