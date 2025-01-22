@@ -86,6 +86,6 @@ select {
 
 @media (max-width: 767px) {
   .App {
-    padding: 2px 2px 0;
+    padding: 2px 14px 0;
   }
 }
