@@ -1,0 +1,18 @@
+.card {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.card__header {
+  position: relative;
+  background-color: var(--colorDark);
+  padding: 16px;
+  border-radius: 5px 5px 0 0;
+}
+
+.card__content {
+  background-color: var(--colorWhite);
+  padding: 8px;
+  border-radius: 0 0 5px 5px;
+}
