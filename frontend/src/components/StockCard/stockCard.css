@@ -1,0 +1,70 @@
+
+.stock {}
+
+.stock__active {
+  box-shadow: 0 0 15px 0 var(--colorDark);
+  transform: scale(1.05);
+}
+
+.stock__inactive {
+  transform: scale(0.94);
+}
+
+.stock__price-up {
+  animation: priceUp 2s ease-in-out;
+}
+
+.stock__price-down {
+  animation: priceDown 2s ease-in-out;
+}
+
+.stock__shake {
+  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes priceUp {
+  20% {
+    box-shadow: 0 0 15px 0 green;
+  }
+  80% {
+    box-shadow: none;
+  }
+}
+
+@keyframes priceDown {
+  20% {
+    box-shadow: 0 0 15px 0 red;
+  }
+  80% {
+    box-shadow: none;
+  }
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+
+  25%,
+  35%,
+  45%,
+  55%,
+  65%,
+  75% {
+    transform: translateX(-6px);
+  }
+
+  30%,
+  40%,
+  50%,
+  60%,
+  70% {
+    transform: translateX(6px);
+  }
+}

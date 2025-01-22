@@ -1,0 +1,6 @@
+.stockCard__info {
+    background-color: var(--colorWhite);
+    padding: 8px;
+    border-radius: 0 0 5px 5px;
+    transition: background-color 0.3s ease;
+}

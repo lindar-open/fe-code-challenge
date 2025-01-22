@@ -1,0 +1,19 @@
+.stockCard__details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform;
+}
+
+.stockCard__details-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.stockCard__details-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+}

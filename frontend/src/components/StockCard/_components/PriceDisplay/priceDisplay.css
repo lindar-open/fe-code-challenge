@@ -1,0 +1,17 @@
+.stockCard__price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 4px 0;
+}
+
+.stockCard__price-label {
+    font-weight: 500;
+    color: var(--colorDark);
+}
+
+.stockCard__price-value {
+    font-weight: 600;
+    color: var(--colorDark);
+}
