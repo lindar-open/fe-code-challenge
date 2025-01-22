@@ -15,6 +15,7 @@
     "postinstall": "concurrently \"yarn workspace backend install\" \"yarn workspace socket install\" \"yarn workspace frontend install\""
   },
   "dependencies": {
+    "@tanstack/react-virtual": "^3.11.2",
     "concurrently": "^8.0.1"
   },
   "packageManager": "yarn@3.6.1"
