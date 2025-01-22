@@ -1,11 +1,10 @@
 import './loading.css';
 import { memo } from 'react';
-const Loading = () => {
+
+export const Loading = memo(() => {
   return (
     <div className="loading">
       <div className="loading__pulse"></div>
     </div>
   );
-};
-
-export default memo(Loading);
+});
