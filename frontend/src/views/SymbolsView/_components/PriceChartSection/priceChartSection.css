@@ -1,0 +1,9 @@
+.symbolsView__price-chart {
+  width: 40%;
+}
+
+@media (max-width: 1023px) {
+    .symbolsView__price-chart {
+        width: 100%;
+    }
+}
