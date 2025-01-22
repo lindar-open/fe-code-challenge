@@ -52,7 +52,6 @@ const stocksSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchAllStocks.fulfilled, (state, action) => {
-      // Add user to the state array
       const map: StockEntry = {};
       action.payload.forEach((e) => {
         map[e.symbol] = e;
@@ -62,19 +61,16 @@ const stocksSlice = createSlice({
       state.apiState.error = false;
       state.apiState.loading = false;
       Object.assign(state, newState);
-      // console.log('fulfilled', action);
     });
 
     builder.addCase(fetchAllStocks.rejected, (state, action) => {
       state.apiState.error = true;
       state.apiState.loading = false;
-      // console.log('rejected', action);
     });
 
     builder.addCase(fetchAllStocks.pending, (state, action) => {
       state.apiState.error = false;
       state.apiState.loading = true;
-      // console.log('pending', action);
     });
   }
 });
