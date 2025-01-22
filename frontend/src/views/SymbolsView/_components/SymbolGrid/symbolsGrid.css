@@ -1,0 +1,75 @@
+.symbolsCardGrid {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 150px);
+  background-color: #e2e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+.symbolsCardGrid__content {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.symbolsCardGrid::-webkit-scrollbar {
+  display: none;
+}
+
+
+.symbolsCardGrid__pullIndicator {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  z-index: 10;
+}
+
+.symbolsCardGrid__pullIndicator--visible {
+  opacity: 1;
+}
+
+.symbolsCardGrid__loader,
+.symbolsCardGrid__refreshSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s linear infinite;
+}
+
+.symbolsCardGrid__refreshSpinner--active {
+  animation: spin 1s linear infinite;
+}
+
+.symbolsCardGrid__error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1023px) {
+  .symbolsCardGrid {
+    height: 55vh;
+  }
+}
