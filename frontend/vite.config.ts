@@ -6,5 +6,30 @@ import svgr from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svgr(), react(), tsconfigPaths()]
+  plugins: [
+    react(),
+    tsconfigPaths(),
+    svgr({
+      svgrOptions: {
+        exportType: 'named',
+        ref: true,
+        svgo: false,
+        titleProp: true
+      },
+      include: '**/*.svg'
+    })
+  ],
+  optimizeDeps: {
+    include: ['react', 'react-dom'],
+  },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+        },
+      },
+    },
+  },
 });
