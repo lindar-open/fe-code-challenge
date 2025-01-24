@@ -23,14 +23,20 @@ export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
     });
   const { activeSymbol, showCardInfo } = useAppSelector(state => state.store);
   
-  const classNames = useStockAnimation(price, activeSymbol, id);
+  const { classNames: stockAnimationClassNames } = useStockAnimation({
+    price,
+    isActive: activeSymbol === id,
+    hasActiveCard: Boolean(activeSymbol),
+    animationDuration: 2000,
+    priceChangeThreshold: 25
+  });
   
   const handleOnClick = useCallback(() => {
     onClick(id);
   }, [onClick, id]);
 
   return (
-    <Card className={classNames} onClick={handleOnClick}>
+    <Card className={stockAnimationClassNames} onClick={handleOnClick}>
       <CardHeader>
         <StockCardHeader
           id={id}

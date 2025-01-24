@@ -11,10 +11,56 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  /* Colors */
   --colorPrimary: #f9dc3e;
   --colorSecondary: #f2f3f3;
   --colorDark: #0e1120;
   --colorWhite: #fdfdfd;
+  --colorSuccess: #28a745;
+  --colorDanger: #dc3545;
+  --colorShadow: rgba(0, 0, 0, 0.1);
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* Typography */
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+
+  /* Animations */
+  --transition-fast: 500ms;
+  --transition-normal: 1s;
+  --transition-slow: 2s;
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Borders */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px var(--colorShadow);
+  --shadow-md: 0 4px 6px var(--colorShadow);
+  --shadow-lg: 0 10px 15px var(--colorShadow);
+  
+  /* Z-index layers */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-modal: 1030;
+  --z-index-tooltip: 1040;
+
+  /* Scales */
+  --scale-active: 1.04;
+  --scale-inactive: 0.96;
+  --scale-default: 1;
 
   color: var(--colorDark);
   overflow: hidden;
@@ -62,6 +108,13 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -74,3 +127,13 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

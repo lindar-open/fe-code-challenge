@@ -1,35 +1,98 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
+import { useDebounce } from 'react-use';
 
-export const useStockAnimation = (price: number, activeStock: string | null, id: string) => {
-  const prevPriceRef = useRef<number | null>(null);
+interface AnimationState {
+  isShaking: boolean;
+  isPriceUp: boolean;
+  isPriceDown: boolean;
+  isActive: boolean;
+}
+
+interface UseStockAnimationProps {
+  price: number;
+  isActive: boolean;
+  hasActiveCard: boolean;
+  animationDuration?: number;
+  priceChangeThreshold?: number;
+}
+
+export const useStockAnimation = ({
+  price,
+  isActive,
+  hasActiveCard,
+  animationDuration = 2000,
+  priceChangeThreshold = 25
+}: UseStockAnimationProps) => {
+  const prevPriceRef = useRef<number>(price);
+  const [animationState, setAnimationState] = useState<AnimationState>({
+    isShaking: false,
+    isPriceUp: false,
+    isPriceDown: false,
+    isActive: false
+  });
 
   useEffect(() => {
-    prevPriceRef.current = price;
-  }, [price]);
-
-  return useMemo(() => {
-    const classNames: string[] = ['stock'];
-
-    if (activeStock) {
-      classNames.push(activeStock === id ? 'stock__active' : 'stock__inactive');
-    }
-
     const prevPrice = prevPriceRef.current;
-    if (prevPrice !== null) {
-      const increasePercent = (100 * (price - prevPrice)) / prevPrice;
+    if (prevPrice !== price) {
+      const priceChange = ((price - prevPrice) / prevPrice) * 100;
 
-      if (price > prevPrice) {
-        if (increasePercent >= 25) {
-          classNames.push('stock__shake');
-        }
-        classNames.push('stock__price-up');
-      }
+      setAnimationState((current) => ({
+        ...current,
+        isShaking: Math.abs(priceChange) >= priceChangeThreshold,
+        isPriceUp: price > prevPrice,
+        isPriceDown: price < prevPrice
+      }));
 
-      if (price < prevPrice) {
-        classNames.push('stock__price-down');
+      prevPriceRef.current = price;
+    }
+  }, [price, priceChangeThreshold]);
+
+  useDebounce(
+    () => {
+      if (animationState.isShaking || animationState.isPriceUp || animationState.isPriceDown) {
+        setAnimationState((current) => ({
+          ...current,
+          isShaking: false,
+          isPriceUp: false,
+          isPriceDown: false
+        }));
       }
+    },
+    animationDuration,
+    [animationState]
+  );
+
+  useEffect(() => {
+    setAnimationState((current) => ({
+      ...current,
+      isActive
+    }));
+  }, [isActive]);
+
+  const classNames = useMemo(() => {
+    const classes = ['stock', 'accelerated'];
+
+    if (hasActiveCard) {
+      classes.push(isActive ? 'stock__active' : 'stock__inactive');
+    } else if (isActive) {
+      classes.push('stock__active');
     }
 
-    return classNames.join(' ');
-  }, [price, activeStock, id]);
+    if (animationState.isShaking) {
+      classes.push('stock__shake');
+    }
+
+    if (animationState.isPriceUp) {
+      classes.push('stock__price-up');
+    } else if (animationState.isPriceDown) {
+      classes.push('stock__price-down');
+    }
+
+    return classes.join(' ');
+  }, [animationState, isActive, hasActiveCard]);
+
+  return {
+    classNames,
+    animationState
+  };
 };
