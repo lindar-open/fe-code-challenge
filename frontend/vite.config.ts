@@ -47,7 +47,8 @@ export default defineConfig(({ mode }) => ({
       'redux',
       'react-redux',
       '@reduxjs/toolkit',
-      'recharts'
+      'recharts',
+      'react-use'
     ],
     exclude: ['@vitejs/plugin-react']
   },
@@ -57,6 +58,6 @@ export default defineConfig(({ mode }) => ({
       localsConvention: 'camelCase',
       generateScopedName:
         mode === 'production' ? '[hash:base64:8]' : '[name]__[local]__[hash:base64:5]'
-    },
+    }
   }
 }));
