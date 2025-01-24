@@ -1,0 +1,23 @@
+.fromattedPrice {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: end;
+  width: 100%;
+}
+
+.fromattedPrice__label {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.fromattedPrice__value {
+  font-size: 24px;
+  font-weight: bold;
+}

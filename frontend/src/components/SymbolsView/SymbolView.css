@@ -1,0 +1,15 @@
+.symbolsView__content {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.symbolsView__cards {
+  flex-grow: 1;
+  padding: 15px;
+  background-color: var(--colorSecondary);
+}
+
+@media screen and (max-width: 1024px) {
+  .symbolsView__content {
+    flex-direction: column;
+  }
+}
