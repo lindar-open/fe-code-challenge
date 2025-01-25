@@ -1,20 +1,22 @@
-import { useEffect, useMemo, memo } from 'react';
-import './priceChart.css';
-
-import { Line, LineChart, XAxis, YAxis, ResponsiveContainer, Tooltip as ReChartsTooltip } from 'recharts';
+import { useEffect, useMemo, memo, useCallback } from 'react';
+import styles from './PriceChart.module.css';
+import {
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Tooltip as ReChartsTooltip
+} from 'recharts';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchPriceHistory, selectors } from '@/store/priceHistorySlice';
 import { Loading } from '@/components/Loading';
-import { Tooltip } from '@/components/Tooltip';
 import { formatTime } from '@/utils/date';
+import { ChartToolTip } from './_components';
 
 interface PriceChartProps {
   symbolId: string | null;
 }
-const CustomTooltip = memo(({ active, payload, label }: any) => {
-  const value = payload && payload.length && payload[0] && payload[0].value ? `${Number(payload[0].value).toFixed(2)}` : '';
-  return <Tooltip active={active} label={label} value={value}  />;
-});
 
 export const PriceChart = memo(({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
@@ -45,16 +47,42 @@ export const PriceChart = memo(({ symbolId }: PriceChartProps) => {
   const rawData = useAppSelector(selectors.selectPriceHistory);
   const symbolInfo = useAppSelector(selectors.selectSymbolInfo);
 
-  const chartData = useMemo(() => {
-    return rawData.map((item) => ({
+  const chartData = useMemo(() => 
+    rawData.map((item) => ({
       time: formatTime(item.time),
       price: item.price
-    }));
-  }, [rawData]);
+    }))
+  , [rawData]);
+
+  const renderChart = useCallback(() => (
+    <ResponsiveContainer width="98%" height="100%">
+      <LineChart data={chartData}>
+        <Line 
+          type="monotone" 
+          dataKey="price" 
+          stroke="#8884d8" 
+          dot={false}
+          strokeWidth={2}
+          isAnimationActive={false}
+        />
+        <XAxis 
+          dataKey="time"
+          tick={{ fontSize: 12 }}
+          padding={{ left: 10, right: 10 }}
+        />
+        <YAxis 
+          tick={{ fontSize: 12 }}
+          width={60}
+          padding={{ top: 20, bottom: 20 }}
+        />
+        <ReChartsTooltip content={<ChartToolTip />} />
+      </LineChart>
+    </ResponsiveContainer>
+  ), [chartData]);
 
   if (apiState.loading && currentSymbol !== null) {
     return (
-      <div className="priceChart">
+      <div className={styles.root}>
         <Loading />
       </div>
     );
@@ -62,48 +90,34 @@ export const PriceChart = memo(({ symbolId }: PriceChartProps) => {
 
   if (apiState.error) {
     return (
-      <div className="priceChart priceChart--error">
-        Failed to get price history
+      <div className={styles.root}>
+        <div className={styles.error}>
+          Failed to get price history
+        </div>
       </div>
     );
   }
 
   if (!currentSymbol) {
     return (
-      <div className="priceChart priceChart--empty">
-        Select stock to view price history
+      <div className={styles.root}>
+        <div className={styles.message}>
+          Select stock to view price history
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="priceChart">
+    <div className={styles.root}>
       {symbolInfo && (
-        <div className="priceChart__info">{symbolInfo}</div>
+        <div className={styles.info}>{symbolInfo}</div>
       )}
-      <ResponsiveContainer width="98%" height="100%">
-        <LineChart data={chartData}>
-          <Line 
-            type="monotone" 
-            dataKey="price" 
-            stroke="#8884d8" 
-            dot={false}
-            strokeWidth={2}
-            isAnimationActive={false}
-          />
-          <XAxis 
-            dataKey="time"
-            tick={{ fontSize: 12 }}
-            padding={{ left: 10, right: 10 }}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            width={60}
-            padding={{ top: 20, bottom: 20 }}
-          />
-          <ReChartsTooltip content={<CustomTooltip />} />
-        </LineChart>
-      </ResponsiveContainer>
+      <div className={styles.chartWrapper}>
+        {renderChart()}
+      </div>
     </div>
   );
 });
+
+PriceChart.displayName = 'PriceChart';
