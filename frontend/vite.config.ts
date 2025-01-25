@@ -48,7 +48,8 @@ export default defineConfig(({ mode }) => ({
       'react-redux',
       '@reduxjs/toolkit',
       'recharts',
-      'react-use'
+      'react-use',
+      'classnames'
     ],
     exclude: ['@vitejs/plugin-react']
   },
