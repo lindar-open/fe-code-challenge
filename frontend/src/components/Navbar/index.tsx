@@ -1,4 +1,5 @@
-import './Navbar.css';
+import { memo, useMemo } from 'react';
+import styles from './Navbar.module.css';
 import { NavLinkItem, ToggleCardInfo } from './_components';
 
 const routes = [
@@ -14,17 +15,27 @@ const routes = [
     path: '/statements',
     name: 'Statements'
   }
-];
+] as const;
 
-export const Navbar = () => {
+export const Navbar = memo(() => {
+  const navItems = useMemo(() => 
+    routes.map((route) => (
+      <NavLinkItem
+        key={route.path}
+        to={route.path}
+        label={route.name}
+      />
+    ))
+  , []);
+
   return (
-    <nav>
-      <ul>
-        {routes.map((route) => (
-          <NavLinkItem key={route.path} to={route.path} label={route.name} />
-        ))}
+    <nav className={styles.root}>
+      <ul className={styles.nav}>
+        {navItems}
       </ul>
       <ToggleCardInfo />
     </nav>
   );
-};
+});
+
+Navbar.displayName = 'Navbar';

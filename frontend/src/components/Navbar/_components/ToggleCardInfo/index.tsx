@@ -1,9 +1,9 @@
-import React from 'react';
+import { memo } from 'react';
 import { toggleShowCardInfo, selectShowCardInfo } from '@/store/dashboardOptionsSlice';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import './toggleCardInfo.css';
+import styles from './ToggleCardInfo.module.css';
 
-export const ToggleCardInfo: React.FC = () => {
+export const ToggleCardInfo = memo(() => {
   const dispatch = useAppDispatch();
   const showCardInfo = useAppSelector(selectShowCardInfo);
 
@@ -12,9 +12,16 @@ export const ToggleCardInfo: React.FC = () => {
   };
 
   return (
-    <label className="toggleCardInfo">
+    <label className={styles.root}>
       +Info
-      <input type="checkbox" checked={showCardInfo} onChange={handleChange} />
+      <input 
+        type="checkbox"
+        className={styles.checkbox}
+        checked={showCardInfo}
+        onChange={handleChange}
+      />
     </label>
   );
-};
+});
+
+ToggleCardInfo.displayName = 'ToggleCardInfo';
