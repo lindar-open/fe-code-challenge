@@ -1,15 +1,18 @@
-import { ListItem } from '@/components/ListItem';
-import type { Bias } from '@/lib/types';
-
+import { memo } from 'react';
 import { PerformanceEmoji } from '@/components/TopHeadlines/_components';
+import type { Bias } from '@/lib/types';
+import styles from './TopHeadlines.module.css';
 
-type TopHeadlineProps = {
+interface TopHeadlineProps {
   bias: Bias;
   headline: string;
-};
+}
 
-const TopHeadline = ({ bias, headline }: TopHeadlineProps) => {
-  return <ListItem Icon={<PerformanceEmoji bias={bias} />} label={headline} />;
-};
+export const TopHeadline = memo(({ bias, headline }: TopHeadlineProps) => (
+  <div className={styles.root}>
+    <PerformanceEmoji bias={bias} />
+    <span>{headline}</span>
+  </div>
+));
 
-export default TopHeadline;
+TopHeadline.displayName = 'TopHeadline';

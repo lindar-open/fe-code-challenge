@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  background: var(--colorWhite);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s var(--ease-out-expo);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}

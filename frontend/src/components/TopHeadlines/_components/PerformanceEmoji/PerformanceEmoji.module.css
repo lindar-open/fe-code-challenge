@@ -1,0 +1,14 @@
+.root {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.root svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  will-change: transform;
+}

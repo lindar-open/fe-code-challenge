@@ -1,17 +1,14 @@
-import React from 'react';
-import './topHeadlines.css';
-
+import { memo } from 'react';
+import styles from './TopHeadlines.module.css';
 import type { Bias } from '@/lib/types';
+import { TopHeadline } from './_components';
 
-import { Row } from '@/components/Row';
-import TopHeadline from './_components/TopHeadline';
-
-type Headline = {
+interface HeadlineData {
   bias: Bias;
   headline: string;
-};
+}
 
-const data: Headline[] = [
+const data: HeadlineData[] = [
   {
     bias: 'POSITIVE',
     headline: 'RegionX: to the moon and beyond!'
@@ -30,12 +27,18 @@ const data: Headline[] = [
   }
 ];
 
-export const TopHeadlines = () => {
-  return (
-    <Row spacing="md" className="topHeadlines">
-      {data.map(({ headline, bias }) => {
-        return <TopHeadline key={headline} bias={bias} headline={headline} />;
-      })}
-    </Row>
-  );
-};
+export const TopHeadlines = memo(() => (
+  <div className={styles.root}>
+    <div className={styles.content}>
+      {data.map(({ headline, bias }) => (
+        <TopHeadline
+          key={headline}
+          bias={bias}
+          headline={headline}
+        />
+      ))}
+    </div>
+  </div>
+));
+
+TopHeadlines.displayName = 'TopHeadlines';
