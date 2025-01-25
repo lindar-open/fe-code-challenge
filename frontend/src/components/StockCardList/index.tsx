@@ -20,7 +20,6 @@ interface StockCardListProps {
 
 const ROW_GAP = 65;
 const CARD_HEIGHT = 250;
-const CARD_WIDTH = 260;
 const INTERSECTION_OPTIONS = {
   threshold: 0.5,
   rootMargin: '100px'
@@ -49,6 +48,13 @@ export const StockCardList = memo(({
     return 3;
   }, [width]);
 
+  // Set CSS variable for grid columns
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.setProperty('--items-per-row', String(itemsPerRow));
+    }
+  }, [itemsPerRow]);
+
   const rowCount = useMemo(() => 
     Math.ceil(symbolIds.length / itemsPerRow)
   , [symbolIds.length, itemsPerRow]);
@@ -70,9 +76,14 @@ export const StockCardList = memo(({
     count: rowCount,
     getScrollElement,
     estimateSize,
-    overscan: 3,
+    overscan: 2,
     paddingStart: ROW_GAP,
-    paddingEnd: ROW_GAP
+    paddingEnd: ROW_GAP,
+    initialRect: { width, height: 800 },
+    measureElement: (element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.height;
+    }
   });
 
   const virtualRows = useMemo(() => 
@@ -137,12 +148,7 @@ export const StockCardList = memo(({
                 height: CARD_HEIGHT,
               }}
             >
-              <div 
-                className={styles.rowContent}
-                style={{
-                  gridTemplateColumns: `repeat(${itemsPerRow}, ${CARD_WIDTH}px)`,
-                }}
-              >
+              <div className={styles.rowContent}>
                 {symbols.map((symbolId) => (
                   <div
                     key={symbolId}
