@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--spacing-xs);
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: background-color 0.2s var(--ease-out-expo);
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.root:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.icon {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  padding: var(--spacing-xs);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: var(--spacing-sm);
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+  will-change: transform;
+}
+
+.value {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  user-select: none;
+  color: var(--colorTextSecondary);
+}

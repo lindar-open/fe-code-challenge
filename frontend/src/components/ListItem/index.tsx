@@ -1,26 +1,47 @@
-import React from 'react';
-import './listItem.css';
+import { memo, ReactNode } from 'react';
+import classNames from 'classnames';
+import styles from './ListItem.module.css';
 
-type ListItemProps = {
-  Icon: React.ReactNode;
+type JustifyContent =
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly'
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'stretch'
+  | 'baseline';
+
+interface ListItemProps {
+  Icon: ReactNode;
   label: string;
-  spacing?:
-    | 'space-between'
-    | 'space-around'
-    | 'space-evenly'
-    | 'flex-start'
-    | 'flex-end'
-    | 'center'
-    | 'stretch'
-    | 'baseline'
-    | undefined;
-};
+  spacing?: JustifyContent;
+  className?: string;
+  onClick?: () => void;
+}
 
-export const ListItem = ({ Icon, label, spacing }: ListItemProps) => {
+export const ListItem = memo(({ 
+  Icon, 
+  label, 
+  spacing = 'flex-start',
+  className,
+  onClick 
+}: ListItemProps) => {
   return (
-    <div style={{ justifyContent: spacing }} className={`listItem`}>
-      <div className="listItem__icon">{Icon}</div>
-      <div className="listItem__value">{label}</div>
+    <div 
+      className={classNames(styles.root, className)}
+      style={{ justifyContent: spacing }}
+      onClick={onClick}
+      role="listitem"
+    >
+      <div className={styles.icon}>
+        {Icon}
+      </div>
+      <div className={styles.value} title={label}>
+        {label}
+      </div>
     </div>
   );
-};
+});
+
+ListItem.displayName = 'ListItem';
