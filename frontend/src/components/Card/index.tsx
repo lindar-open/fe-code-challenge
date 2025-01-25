@@ -1,13 +1,22 @@
-import { memo } from 'react';
-import './card.css';
+import { memo, type ReactNode } from 'react';
+import classNames from 'classnames';
+import styles from './Card.module.css';
+export { CardHeader, CardContent } from './_components';
 
-import type { CardProps } from './types';
+export interface CardProps {
+  className?: string;
+  onClick?: () => void;
+  children: ReactNode;
+}
 
-export const Card = memo(({ className = '', onClick, children }: CardProps) => (
-  <div className={`card ${className}`} onClick={onClick}>
+export const Card = memo(({ className, onClick, children }: CardProps) => (
+  <div 
+    className={classNames(styles.root, className)}
+    onClick={onClick}
+    role="article"
+  >
     {children}
   </div>
 ));
 
-export { CardHeader } from './_components/CardHeader';
-export { CardContent } from './_components/CardContent';
+Card.displayName = 'Card';

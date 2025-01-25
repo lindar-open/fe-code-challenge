@@ -1,0 +1,6 @@
+.header {
+  position: relative;
+  background-color: var(--colorDark);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+}

@@ -1,8 +1,16 @@
-import { memo } from 'react';
-import type { CardContentProps } from '@/components/Card/types';
+import { memo, type ReactNode } from 'react';
+import classNames from 'classnames';
+import styles from './CardContent.module.css';
 
-export const CardContent = memo(({ children }: CardContentProps) => (
-  <div className="card__content">
+export interface CardContentProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export const CardContent = memo(({ children, className }: CardContentProps) => (
+  <div className={classNames(styles.content, className)}>
     {children}
   </div>
 ));
+
+CardContent.displayName = 'CardContent';
