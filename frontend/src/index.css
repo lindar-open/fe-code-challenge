@@ -78,7 +78,7 @@
   --icon-size-lg: 32px;
 
   color: var(--colorDark);
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 a {
@@ -152,3 +152,8 @@ button:focus-visible {
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    overflow: hidden;
+  }
+}
