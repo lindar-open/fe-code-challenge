@@ -1,23 +1,29 @@
-import { memo } from 'react';
-import './performanceInfo.css';
+import { memo, useMemo } from 'react';
+import classNames from 'classnames';
+import styles from './PerformanceInfo.module.css';
 import formatSymbolChange from '@/utils/formatSymbolChange';
 
-type PerformanceCardProps = {
+interface PerformanceInfoProps {
   label: string;
   change: number;
-};
+}
 
-export const PerformanceInfo = memo(({ label, change }: PerformanceCardProps) => {
+export const PerformanceInfo = memo(({ label, change }: PerformanceInfoProps) => {
+  const valueClasses = useMemo(() => 
+    classNames(styles.value, {
+      [styles.valueUp]: change > 1,
+      [styles.valueDown]: change <= 1
+    })
+  , [change]);
+
   return (
-    <div className="performanceInfo">
-      <div className="performanceInfo__label">{label}</div>
-      <div
-        className={`performanceInfo__value ${
-          change > 1 ? 'performanceInfo__value--up' : 'performanceInfo__value--down'
-        }`}
-      >
+    <div className={styles.root}>
+      <div className={styles.label}>{label}</div>
+      <div className={valueClasses}>
         {formatSymbolChange(change, 2)}
       </div>
     </div>
   );
-})
+});
+
+PerformanceInfo.displayName = 'PerformanceInfo';

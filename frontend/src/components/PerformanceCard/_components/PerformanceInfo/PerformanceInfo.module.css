@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  font-size: var(--font-size-sm);
+  color: var(--colorDark);
+  font-weight: var(--font-weight-medium);
+}
+
+.value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  transition: color 0.2s var(--ease-out-expo);
+}
+
+.valueUp {
+  color: var(--colorSuccess);
+}
+
+.valueDown {
+  color: var(--colorDanger);
+}

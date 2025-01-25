@@ -1,0 +1,19 @@
+.root {
+  align-items: center;
+  gap: var(--spacing-md);
+  flex: 1 1 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  background: var(--colorWhite);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm);
+  box-shadow: var(--shadow-sm);
+  will-change: transform;
+  transform: translateZ(0);
+  transition: box-shadow 0.3s var(--ease-out-expo);
+}
+
+.root:hover {
+  box-shadow: var(--shadow-md);
+}
