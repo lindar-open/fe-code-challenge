@@ -1,5 +1,6 @@
-import { useRef, useEffect, useMemo, useState } from 'react';
+import { useRef, useEffect, useMemo, useState, useCallback } from 'react';
 import { useDebounce } from 'react-use';
+import classNames from 'classnames';
 
 interface AnimationState {
   isShaking: boolean;
@@ -12,6 +13,13 @@ interface UseStockAnimationProps {
   price: number;
   isActive: boolean;
   hasActiveCard: boolean;
+  styles: {
+    active: string;
+    inactive: string;
+    shake: string;
+    priceUp: string;
+    priceDown: string;
+  };
   animationDuration?: number;
   priceChangeThreshold?: number;
 }
@@ -20,6 +28,7 @@ export const useStockAnimation = ({
   price,
   isActive,
   hasActiveCard,
+  styles,
   animationDuration = 2000,
   priceChangeThreshold = 25
 }: UseStockAnimationProps) => {
@@ -31,10 +40,14 @@ export const useStockAnimation = ({
     isActive: false
   });
 
+  const calculatePriceChange = useCallback((currentPrice: number, previousPrice: number) => {
+    return ((currentPrice - previousPrice) / previousPrice) * 100;
+  }, []);
+
   useEffect(() => {
     const prevPrice = prevPriceRef.current;
     if (prevPrice !== price) {
-      const priceChange = ((price - prevPrice) / prevPrice) * 100;
+      const priceChange = calculatePriceChange(price, prevPrice);
 
       setAnimationState((current) => ({
         ...current,
@@ -45,7 +58,7 @@ export const useStockAnimation = ({
 
       prevPriceRef.current = price;
     }
-  }, [price, priceChangeThreshold]);
+  }, [price, priceChangeThreshold, calculatePriceChange]);
 
   useDebounce(
     () => {
@@ -69,30 +82,25 @@ export const useStockAnimation = ({
     }));
   }, [isActive]);
 
-  const classNames = useMemo(() => {
-    const classes = ['stock', 'accelerated'];
-
-    if (hasActiveCard) {
-      classes.push(isActive ? 'stock__active' : 'stock__inactive');
-    } else if (isActive) {
-      classes.push('stock__active');
-    }
-
-    if (animationState.isShaking) {
-      classes.push('stock__shake');
-    }
-
-    if (animationState.isPriceUp) {
-      classes.push('stock__price-up');
-    } else if (animationState.isPriceDown) {
-      classes.push('stock__price-down');
-    }
-
-    return classes.join(' ');
-  }, [animationState, isActive, hasActiveCard]);
+  const computedClassNames = useMemo(() => {
+    return classNames({
+      [styles.active]: isActive && hasActiveCard,
+      [styles.inactive]: !isActive && hasActiveCard,
+      [styles.priceUp]: animationState.isPriceUp,
+      [styles.priceDown]: animationState.isPriceDown,
+      [styles.shake]: animationState.isShaking,
+    });
+  }, [
+    styles,
+    animationState.isShaking,
+    animationState.isPriceUp,
+    animationState.isPriceDown,
+    isActive,
+    hasActiveCard
+  ]);
 
   return {
-    classNames,
+    classNames: computedClassNames,
     animationState
   };
 };

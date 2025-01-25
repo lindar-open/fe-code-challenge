@@ -1,15 +1,30 @@
 import { memo, useMemo } from 'react';
-import './priceDisplay.css';
-
+import classNames from 'classnames';
+import styles from './PriceDisplay.module.css';
 import { formatCurrency } from '@/utils/currencyFormatter';
 
-export const PriceDisplay = memo(({ price }: { price: number }) => {
-  const formattedPrice = useMemo(() => formatCurrency(price), [price]);
-  
+interface PriceDisplayProps {
+  price: number;
+  isAnimating?: boolean;
+}
+
+export const PriceDisplay = memo(({ price, isAnimating = false }: PriceDisplayProps) => {
+  const formattedPrice = useMemo(() => 
+    formatCurrency(price), [price]
+  );
+
   return (
-    <div className="stockCard__price">
-      <span className="stockCard__price-label">PRICE:</span>
-      <span className="stockCard__price-value">{formattedPrice}</span>
+    <div className={styles.container}>
+      <span className={styles.label}>PRICE:</span>
+      <span 
+        className={classNames(styles.value, {
+          [styles.animated]: isAnimating
+        })}
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {formattedPrice}
+      </span>
     </div>
   );
 });

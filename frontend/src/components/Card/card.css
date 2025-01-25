@@ -1,7 +1,6 @@
 .card {
   position: relative;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
 }
 
 .card__header {

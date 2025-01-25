@@ -1,6 +1,5 @@
-import { memo } from 'react';
-import './stockCardHeader.css';
-
+import { memo, useMemo } from 'react';
+import styles from './StockCardHeader.module.css';
 import type { TrendType } from '@/lib/types';
 import { useAsset } from '@/hooks/assets/useAsset';
 
@@ -13,15 +12,22 @@ export const StockCardHeader = memo(({ id, trend }: StockCardHeaderProps) => {
   const arrowUpIcon = useAsset<string>('arrowUpIcon');
   const arrowDownIcon = useAsset<string>('arrowDownIcon');
 
+  const trendIcon = useMemo(() => 
+    trend ? (trend === 'UP' ? arrowUpIcon : arrowDownIcon) : null,
+    [trend, arrowUpIcon, arrowDownIcon]
+  );
+
   return (
-    <div className="stockCard__header">
-      {trend ? (
+    <div className={styles.header}>
+      {trendIcon && (
         <img 
-          src={trend === 'UP' ? arrowUpIcon : arrowDownIcon} 
-          className="stockCard__trend-icon" 
-          alt={`Trend ${trend.toLowerCase()}`}
+          src={trendIcon} 
+          className={styles.trendIcon}
+          alt={`Trend ${trend?.toLowerCase()}`}
+          aria-hidden="true"
         />
-      ) : null}
-      <span className="stockCard__id">{id}</span>
+      )}
+      <span className={styles.symbol}>{id}</span>
     </div>
-)});
+  );
+});

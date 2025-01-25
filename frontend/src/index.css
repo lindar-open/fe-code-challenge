@@ -14,6 +14,7 @@
   /* Colors */
   --colorPrimary: #f9dc3e;
   --colorSecondary: #f2f3f3;
+  --colorTextSecondary: #666;
   --colorDark: #0e1120;
   --colorWhite: #fdfdfd;
   --colorSuccess: #28a745;
@@ -33,6 +34,11 @@
   --font-size-md: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 24px;
+
+  /* Typography Scale */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
 
   /* Animations */
   --transition-fast: 500ms;
@@ -56,11 +62,19 @@
   --z-index-sticky: 1020;
   --z-index-modal: 1030;
   --z-index-tooltip: 1040;
+  --z-index-base: 1;
+  --z-index-hover: 2;
+  --z-index-active: 3;
 
   /* Scales */
+  --scale-default: 1;
   --scale-active: 1.04;
   --scale-inactive: 0.96;
-  --scale-default: 1;
+  
+  /* Icon Sizes */
+  --icon-size-sm: 16px;
+  --icon-size-md: 24px;
+  --icon-size-lg: 32px;
 
   color: var(--colorDark);
   overflow: hidden;

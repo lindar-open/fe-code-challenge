@@ -1,8 +1,8 @@
 import { memo } from 'react';
-import './stockCardInfo.css';
-
-import type { TrendType } from "@/lib/types";
+import classNames from 'classnames';
+import styles from './StockCardInfo.module.css';
 import { PriceDisplay, CompanyDetails } from '@/components/StockCard/_components';
+import type { TrendType } from "@/lib/types";
 
 export interface StockData {
   trend: TrendType;
@@ -15,22 +15,37 @@ export interface StockCardInfoProps {
   price: number;
   showCardInfo: boolean;
   symbolData: StockData;
+  isAnimating?: boolean;
 }
 
 export const StockCardInfo = memo(({ 
   price,
   showCardInfo,
-  symbolData
+  symbolData,
+  isAnimating = false
 }: StockCardInfoProps) => {
   return (
-    <div className="stockCard__info">
-      <PriceDisplay price={price} />
+    <div 
+      className={classNames(styles.info, {
+        [styles.animated]: isAnimating
+      })}
+    >
+      <PriceDisplay 
+        price={price}
+        isAnimating={isAnimating}
+      />
       {showCardInfo && (
-        <CompanyDetails
-          companyName={symbolData.companyName}
-          industry={symbolData.industry}
-          marketCap={symbolData.marketCap}
-        />
+        <div
+          className={classNames(styles.detailsContainer, {
+            [styles.detailsVisible]: showCardInfo
+          })}
+        >
+          <CompanyDetails
+            companyName={symbolData.companyName}
+            industry={symbolData.industry}
+            marketCap={symbolData.marketCap}
+          />
+        </div>
       )}
     </div>
   );

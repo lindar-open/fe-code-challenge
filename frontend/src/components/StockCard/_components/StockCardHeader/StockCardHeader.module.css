@@ -1,0 +1,28 @@
+.header {
+  position: relative;
+  background-color: var(--colorDark);
+  color: var(--colorWhite);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+}
+
+.trendIcon {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 50px;
+  height: 50px;
+  transition: transform var(--transition-normal);
+}
+
+.trendIcon:hover {
+  transform: scale(1.1);
+}
+
+.symbol {
+  color: var(--colorWhite);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}

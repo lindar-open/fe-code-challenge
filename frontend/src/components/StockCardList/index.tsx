@@ -17,7 +17,7 @@ interface StockCardListProps {
   onRefresh?: () => Promise<void>;
 }
 
-const ROW_GAP = 50;
+const ROW_GAP = 65;
 const CARD_HEIGHT = 250;
 const CARD_WIDTH = 260;
 
