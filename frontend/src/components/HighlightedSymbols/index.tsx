@@ -1,18 +1,14 @@
-import React from 'react';
-import './highlightedSymbols.css';
-
+import { memo, useMemo } from 'react';
+import styles from './HighlightedSymbols.module.css';
 import type { TrendType } from '@/lib/types';
-import {
-  PerformanceCard,
-} from '@/components/PerformanceCard';
-import { Row } from '@/components/Row';
+import { PerformanceCard } from '@/components/PerformanceCard';
 
-type HighlightedSymbol = {
+interface HighlightedSymbol {
   trend?: TrendType;
   symbolId: string;
   volume: number;
   change: number;
-};
+}
 
 const data: HighlightedSymbol[] = [
   {
@@ -45,21 +41,27 @@ const data: HighlightedSymbol[] = [
     volume: 73_735_142,
     change: 0.9932
   }
-];
+] as const;
 
-export const HighlightedSymbols = () => {
+export const HighlightedSymbols = memo(() => {
+  const renderedSymbols = useMemo(() => 
+    data.map((symbol) => (
+      <PerformanceCard
+        key={symbol.symbolId}
+        title={symbol.symbolId}
+        volume={symbol.volume}
+        change={symbol.change}
+      />
+    ))
+  , []);
+
   return (
-    <Row spacing="md" className="highlightedSymbols">
-      {data.map((symbol, index) => {
-        return (
-          <PerformanceCard
-            change={symbol.change}
-            key={index}
-            title={symbol.symbolId}
-            volume={symbol.volume}
-          />
-        );
-      })}
-    </Row>
+    <div className={styles.root}>
+      <div className={styles.wrapper}>
+        {renderedSymbols}
+      </div>
+    </div>
   );
-};
+});
+
+HighlightedSymbols.displayName = 'HighlightedSymbols';
