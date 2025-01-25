@@ -1,0 +1,26 @@
+.root {
+  margin: var(--spacing-sm);
+  display: flex;
+  will-change: contents;
+  transform: translateZ(0);
+}
+
+.spacingXs {
+  gap: var(--spacing-xs);
+}
+
+.spacingSm {
+  gap: var(--spacing-sm);
+}
+
+.spacingMd {
+  gap: var(--spacing-md);
+}
+
+.spacingLg {
+  gap: var(--spacing-lg);
+}
+
+.spacingXl {
+  gap: var(--spacing-xl);
+}
