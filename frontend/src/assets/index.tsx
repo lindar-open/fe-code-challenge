@@ -6,5 +6,5 @@ export { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
 export { ReactComponent as HappyFace } from '@/assets/happy.svg';
 export { ReactComponent as NeutralFace } from '@/assets/neutral.svg';
 export { ReactComponent as SadFace } from '@/assets/sad.svg';
-export { default as arrowDownIcon } from '@/assets/down.png';
-export { default as arrowUpIcon } from '@/assets/up.png';
+export { default as arrowDownIcon } from '@/assets/down.webp';
+export { default as arrowUpIcon } from '@/assets/up.webp';
