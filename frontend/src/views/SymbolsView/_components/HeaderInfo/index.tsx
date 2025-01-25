@@ -1,14 +1,13 @@
 import { memo } from 'react';
-import './headerInfo.css';
-
+import styles from '@/views/SymbolsView/SymbolsView.module.css';
 import { HighlightedSymbols } from '@/components/HighlightedSymbols';
 import { TopHeadlines } from '@/components/TopHeadlines';
 
-export const HeaderInfo = memo(() => {
-  return (
-    <div className="headerInfo">
-      <HighlightedSymbols />
-      <TopHeadlines />
-    </div>
-  );
-});
+export const HeaderInfo = memo(() => (
+  <div className={styles.root}>
+    <HighlightedSymbols />
+    <TopHeadlines />
+  </div>
+));
+
+HeaderInfo.displayName = 'HeaderInfo';

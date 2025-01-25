@@ -1,20 +1,18 @@
-
 import { memo } from 'react';
-import './priceChartSection.css';
-
+import styles from '@/views/SymbolsView/SymbolsView.module.css';
 import { PriceChart } from '@/components/PriceChart';
 
-export type SymbolId = string | null;
-
-export interface PriceChartSectionProps {
-  symbolId: SymbolId;
+interface PriceChartSectionProps {
+  symbolId: string | null;
 }
 
 export const PriceChartSection = memo(({ symbolId }: PriceChartSectionProps) => (
-  <div className="symbolsView__price-chart">
-    <div className="symbolsView__chart">
-      <h3>PRICE HISTORY</h3>
+  <div className={styles.priceChart}>
+    <div className={styles.chart}>
+      <h3 className={styles.chartTitle}>PRICE HISTORY</h3>
     </div>
     <PriceChart symbolId={symbolId} />
   </div>
 ));
+
+PriceChartSection.displayName = 'PriceChartSection';

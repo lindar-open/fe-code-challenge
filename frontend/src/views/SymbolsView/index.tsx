@@ -1,12 +1,9 @@
-import { useState, useCallback } from 'react';
-import './symbolsView.css';
-
+import { useState, useCallback, memo } from 'react';
+import styles from './SymbolsView.module.css';
 import { useAppDispatch } from '@/hooks/redux';
-import { setActiveSymbol as setActiveSymbolState } from '@/store/dashboardOptionsSlice';
-import { SymbolId } from './_components/PriceChartSection';
-import { SymbolsGridSection, HeaderInfo, PriceChartSection } from './_components';
-
-import { AssetKey } from '@/utils/assetPreloader';
+import { setActiveSymbol } from '@/store/dashboardOptionsSlice';
+import { HeaderInfo, PriceChartSection, SymbolsGridSection } from './_components';
+import type { AssetKey } from '@/utils/assetPreloader';
 
 export const requiredAssets: AssetKey[] = [
   'CompanyIcon', 
@@ -23,18 +20,19 @@ export const requiredAssets: AssetKey[] = [
 
 const SymbolsView = () => {
   const dispatch = useAppDispatch();
-  const [activeSymbol, setActiveSymbol] = useState<SymbolId>(null);
+  const [activeSymbol, setActiveSymbolState] = useState<string | null>(null);
 
   const handleSymbolClick = useCallback((symbolId: string) => {
-    setActiveSymbol((prevSymbol) => prevSymbol === symbolId ? null : symbolId);
-    dispatch(setActiveSymbolState(symbolId));
+    setActiveSymbolState((prevSymbol) => 
+      prevSymbol === symbolId ? null : symbolId
+    );
+    dispatch(setActiveSymbol(symbolId));
   }, [dispatch]);
 
   return (
-    <div className="symbolsView">
+    <div className={styles.root}>
       <HeaderInfo />
-      
-      <div className="symbolsView__content">
+      <div className={styles.content}>
         <PriceChartSection symbolId={activeSymbol} />
         <SymbolsGridSection onSymbolClick={handleSymbolClick} />
       </div>
@@ -42,4 +40,6 @@ const SymbolsView = () => {
   );
 };
 
-export default SymbolsView;
+SymbolsView.displayName = 'SymbolsView';
+
+export default memo(SymbolsView);

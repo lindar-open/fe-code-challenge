@@ -1,0 +1,75 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 150px);
+  background-color: var(--colorSecondary);
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.content {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--colorDanger);
+  background-color: var(--colorWhite);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-md);
+}
+
+.pullIndicator {
+  position: absolute;
+  top: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out-expo),
+              transform 0.2s var(--ease-out-expo);
+  z-index: var(--z-index-tooltip);
+}
+
+.pullIndicatorVisible {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.loader,
+.refreshSpinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--colorShadow);
+  border-top-color: var(--colorPrimary);
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.refreshSpinnerActive {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1023px) {
+  .root {
+    height: 55vh;
+  }
+}

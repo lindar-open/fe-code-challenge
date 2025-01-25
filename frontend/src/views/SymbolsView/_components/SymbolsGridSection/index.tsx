@@ -1,6 +1,5 @@
 import { memo } from 'react';
-import './SymbolsGridSection.css';
-
+import styles from '@/views/SymbolsView/SymbolsView.module.css';
 import { SymbolsGrid } from '@/views/SymbolsView/_components';
 
 interface SymbolsGridSectionProps {
@@ -8,7 +7,9 @@ interface SymbolsGridSectionProps {
 }
 
 export const SymbolsGridSection = memo(({ onSymbolClick }: SymbolsGridSectionProps) => (
-  <div className="symbolsView__cards">
+  <div className={styles.cardsSection}>
     <SymbolsGrid onSymbolClick={onSymbolClick} />
   </div>
 ));
+
+SymbolsGridSection.displayName = 'SymbolsGridSection';
