@@ -26,7 +26,7 @@ export const StockCardInfo = memo(({
 }: StockCardInfoProps) => {
   return (
     <div 
-      className={classNames(styles.info, {
+      className={classNames(styles.root, {
         [styles.animated]: isAnimating
       })}
     >

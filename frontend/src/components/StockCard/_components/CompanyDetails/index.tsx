@@ -25,7 +25,7 @@ export const CompanyDetails = memo(({
 
   return (
     <div 
-      className={styles.details}
+      className={styles.root}
       role="group" 
       aria-label="Company Details"
     >

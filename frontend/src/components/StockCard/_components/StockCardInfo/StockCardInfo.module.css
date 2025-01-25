@@ -1,4 +1,4 @@
-.info {
+.root {
   background-color: var(--colorWhite);
   padding: var(--spacing-sm);
   border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);

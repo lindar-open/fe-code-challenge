@@ -18,7 +18,7 @@ export const StockCardHeader = memo(({ id, trend }: StockCardHeaderProps) => {
   );
 
   return (
-    <div className={styles.header}>
+    <div className={styles.root}>
       {trendIcon && (
         <img 
           src={trendIcon} 

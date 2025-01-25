@@ -14,7 +14,7 @@ export const PriceDisplay = memo(({ price, isAnimating = false }: PriceDisplayPr
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles.root}>
       <span className={styles.label}>PRICE:</span>
       <span 
         className={classNames(styles.value, {

@@ -7,7 +7,7 @@ interface DetailRowProps {
 }
 
 export const DetailRow = memo(({ Icon, label }: DetailRowProps) => (
-  <div className={styles.row}>
+  <div className={styles.root}>
     <div className={styles.icon}>
       <Icon />
     </div>

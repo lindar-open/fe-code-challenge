@@ -48,7 +48,7 @@ export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
   });
 
   const cardClassNames = useMemo(() => classNames(
-    styles.stock,
+    styles.root,
     "accelerated",
     ...animationClasses.split(' ')
   ), [animationClasses]);
