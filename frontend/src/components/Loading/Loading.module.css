@@ -1,4 +1,4 @@
-.loading {
+.root {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,7 +6,7 @@
   flex-grow: 1;
 }
 
-.loading__pulse {
+.pulse {
   margin: auto;
   position: relative;
   left: -9999px;
@@ -16,11 +16,13 @@
   background-color: var(--colorDark);
   color: var(--colorDark);
   box-shadow: 9999px 0 0 -5px;
-  animation: dot-pulse 1.5s infinite linear;
+  animation: dotPulse 1.5s infinite linear;
   animation-delay: 0.25s;
+  will-change: box-shadow, transform;
 }
-.loading__pulse::before,
-.loading__pulse::after {
+
+.pulse::before,
+.pulse::after {
   content: '';
   display: inline-block;
   position: absolute;
@@ -31,18 +33,20 @@
   background-color: var(--colorDark);
   color: var(--colorDark);
 }
-.loading__pulse::before {
+
+.pulse::before {
   box-shadow: 9984px 0 0 -5px;
-  animation: dot-pulse-before 1.5s infinite linear;
+  animation: dotPulseBefore 1.5s infinite linear;
   animation-delay: 0s;
 }
-.loading__pulse::after {
+
+.pulse::after {
   box-shadow: 10014px 0 0 -5px;
-  animation: dot-pulse-after 1.5s infinite linear;
+  animation: dotPulseAfter 1.5s infinite linear;
   animation-delay: 0.5s;
 }
 
-@keyframes dot-pulse-before {
+@keyframes dotPulseBefore {
   0% {
     box-shadow: 9984px 0 0 -5px;
   }
@@ -54,7 +58,8 @@
     box-shadow: 9984px 0 0 -5px;
   }
 }
-@keyframes dot-pulse {
+
+@keyframes dotPulse {
   0% {
     box-shadow: 9999px 0 0 -5px;
   }
@@ -66,7 +71,8 @@
     box-shadow: 9999px 0 0 -5px;
   }
 }
-@keyframes dot-pulse-after {
+
+@keyframes dotPulseAfter {
   0% {
     box-shadow: 10014px 0 0 -5px;
   }
