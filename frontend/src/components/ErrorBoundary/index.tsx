@@ -1,18 +1,18 @@
-import React, { Component, ErrorInfo } from 'react';
-import './errorBoundary.css';
+import { Component, ErrorInfo } from 'react';
+import styles from './ErrorBoundary.module.css';
 
-interface Props {
+export interface ErrorBoundaryProps {
   children: React.ReactNode;
   fallback?: React.ReactNode;
 }
 
-interface State {
+export interface ErrorBoundaryState {
   hasError: boolean;
   error: Error | null;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
-  constructor(props: Props) {
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { 
       hasError: false,
@@ -20,7 +20,7 @@ export class ErrorBoundary extends Component<Props, State> {
     };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     return {
       hasError: true,
       error
@@ -31,6 +31,10 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
   }
 
+  private handleReload = () => {
+    window.location.reload();
+  };
+
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
@@ -38,11 +42,11 @@ export class ErrorBoundary extends Component<Props, State> {
       }
 
       return (
-        <div className="errorBoundary">
-          <h2>Something went wrong</h2>
+        <div className={styles.root}>
+          <h2 className={styles.title}>Something went wrong</h2>
           <button 
-            className="errorBoundary__button"
-            onClick={() => window.location.reload()}
+            className={styles.button}
+            onClick={this.handleReload}
           >
             Reload Page
           </button>
