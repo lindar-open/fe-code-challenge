@@ -1,7 +1,7 @@
 import { memo, type ReactNode } from 'react';
 import classNames from 'classnames';
 import styles from './Card.module.css';
-export { CardHeader, CardContent } from './_components';
+export { CardHeader, CardContent, LoadingCard } from './_components';
 
 export interface CardProps {
   className?: string;
