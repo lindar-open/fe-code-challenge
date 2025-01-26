@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { PerformanceEmoji } from '@/components/TopHeadlines/_components';
 import type { Bias } from '@/lib/types';
-import styles from './TopHeadlines.module.css';
+import styles from './TopHeadline.module.css';
 
 interface TopHeadlineProps {
   bias: Bias;
