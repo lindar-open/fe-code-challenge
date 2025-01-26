@@ -79,6 +79,8 @@
 
   color: var(--colorDark);
   overflow-y: auto;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 a {

@@ -3,7 +3,6 @@
   padding: var(--spacing-sm);
   border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
   transition: background-color var(--animation-timing-normal) var(--animation-easing);
-  contain: content;
 }
 
 .animated {

@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import styles from './StockCard.module.css';
 import { useAppSelector } from '@/hooks/redux';
 import { useStockAnimation } from '@/hooks/animation/useStockAnimation';
-import { Card, CardHeader, CardContent } from '@/components/Card';
+import { Card, CardHeader, CardContent, LoadingCard } from '@/components/Card';
 import { StockCardHeader, StockCardInfo } from './_components';
+import { type RootState } from '@/store';
 
 export interface StockCardProps {
   id: string;
@@ -13,16 +14,18 @@ export interface StockCardProps {
 }
 
 export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
-  const symbolData = useAppSelector(
-    state => state.stocks.entities[id],
-    (prev, next) => {
-      if (!prev || !next) return false;
-      return (
-        prev.trend === next.trend &&
-        prev.marketCap === next.marketCap
-      );
-    }
-  );
+  const selectStockData = useCallback((state: RootState) => {
+    const entity = state.stocks.entities[id];
+    if (!entity) return null;
+    return {
+      trend: entity.trend,
+      marketCap: entity.marketCap,
+      companyName: entity.companyName,
+      industry: entity.industry
+    };
+  }, [id]);
+
+  const symbolData = useAppSelector(selectStockData);
 
   const { activeSymbol, showCardInfo } = useAppSelector(state => ({
     activeSymbol: state.store.activeSymbol,
@@ -32,7 +35,7 @@ export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
     prev.showCardInfo === next.showCardInfo
   );
 
-  const { classNames: animationClasses } = useStockAnimation({
+  const animationProps = useMemo(() => ({
     price,
     isActive: activeSymbol === id,
     hasActiveCard: Boolean(activeSymbol),
@@ -45,25 +48,28 @@ export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
     },
     animationDuration: 2000,
     priceChangeThreshold: 25
-  });
+  }), [price, activeSymbol, id]);
+
+  const { classNames: animationClasses } = useStockAnimation(animationProps);
+
+  const handleClick = useCallback(() => {
+    onClick(id);
+  }, [onClick, id]);
+
+  if (!symbolData) {
+    return <LoadingCard />;
+  }
 
   const cardClassNames = useMemo(() => classNames(
     styles.root,
     "accelerated",
     ...animationClasses.split(' ')
   ), [animationClasses]);
-
-  const handleClick = useCallback(() => {
-    onClick(id);
-  }, [onClick, id]);
-
+  
   return (
     <Card className={cardClassNames} onClick={handleClick}>
       <CardHeader>
-        <StockCardHeader
-          id={id}
-          trend={symbolData.trend}
-        />
+        <StockCardHeader id={id} trend={symbolData.trend} />
       </CardHeader>
       <CardContent>
         <StockCardInfo
@@ -73,5 +79,11 @@ export const StockCard = memo(({ id, onClick, price }: StockCardProps) => {
         />
       </CardContent>
     </Card>
+  );
+}, (prevProps, nextProps) => {
+  return (
+    prevProps.id === nextProps.id &&
+    prevProps.price === nextProps.price &&
+    prevProps.onClick === nextProps.onClick
   );
 });

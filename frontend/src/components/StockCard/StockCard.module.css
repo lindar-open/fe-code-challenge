@@ -1,9 +1,10 @@
 .root {
-  contain: content;
   transform: scale(var(--scale-default));
   transition: transform var(--transition-normal) var(--ease-out-expo),
               box-shadow var(--transition-normal) var(--ease-out-expo);
   will-change: transform, box-shadow;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 250px;
 }
 
 .active {

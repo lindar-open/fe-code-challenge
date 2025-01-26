@@ -11,3 +11,12 @@
 .root:hover {
   transform: translateY(-2px);
 }
+
+.text {
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--colorTextSecondary);
+}

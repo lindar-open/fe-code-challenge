@@ -4,7 +4,6 @@
   align-items: center;
   margin-bottom: var(--spacing-md);
   padding: var(--spacing-xs) 0;
-  contain: content;
 }
 
 .label {

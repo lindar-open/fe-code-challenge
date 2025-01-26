@@ -11,7 +11,7 @@ interface TopHeadlineProps {
 export const TopHeadline = memo(({ bias, headline }: TopHeadlineProps) => (
   <div className={styles.root}>
     <PerformanceEmoji bias={bias} />
-    <span>{headline}</span>
+    <span className={styles.text}>{headline}</span>
   </div>
 ));
 

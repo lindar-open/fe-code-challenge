@@ -18,12 +18,11 @@ interface StockCardListProps {
   onRefresh?: () => Promise<void>;
 }
 
-const ROW_GAP = 65;
-const CARD_HEIGHT = 250;
-const INTERSECTION_OPTIONS = {
-  threshold: 0.5,
-  rootMargin: '100px'
-};
+interface VirtualRow {
+    key: string;
+    start: number;
+    symbols: string[];
+}
 
 export const StockCardList = memo(({ 
   symbolIds,
@@ -36,6 +35,19 @@ export const StockCardList = memo(({
   const { width } = useWindowSize();
   const activeSymbol = useAppSelector(state => state.store.activeSymbol);
   const hasActiveCard = Boolean(activeSymbol);
+  const overscanCount = 5;
+
+  const itemConfig = useMemo(() => ({
+    ROW_GAP: 65,
+    CARD_HEIGHT: 250,
+    CARD_WIDTH: 260,
+    INTERSECTION_OPTIONS: {
+      threshold: 0.5,
+      rootMargin: '100px'
+    }
+  }), []);
+
+  const { ROW_GAP, CARD_HEIGHT, INTERSECTION_OPTIONS } = itemConfig;
   
   useEffect(() => {
     performanceMonitor.startMeasure('stockCardListRender');
@@ -48,23 +60,29 @@ export const StockCardList = memo(({
     return 3;
   }, [width]);
 
-  // Set CSS variable for grid columns
   useEffect(() => {
     if (containerRef.current) {
       containerRef.current.style.setProperty('--items-per-row', String(itemsPerRow));
     }
   }, [itemsPerRow]);
 
-  const rowCount = useMemo(() => 
+  const getItemCount = useCallback((itemsPerRow: number) => 
     Math.ceil(symbolIds.length / itemsPerRow)
-  , [symbolIds.length, itemsPerRow]);
-  const estimateSize = useCallback(() => CARD_HEIGHT + ROW_GAP, []);
+  , [symbolIds.length]);
+  const rowCount = useMemo(() => getItemCount(itemsPerRow), [getItemCount, itemsPerRow]);
+  const estimateSize = useCallback(() => CARD_HEIGHT + ROW_GAP, [CARD_HEIGHT, ROW_GAP]);
   const getScrollElement = useCallback(() => containerRef.current, []);
 
   const { isIntersecting } = useIntersection(
     bottomRef, 
     INTERSECTION_OPTIONS
   ) || { isIntersecting: false };
+
+  useEffect(() => {
+    if (virtualizer.measure) {
+      virtualizer.measure();
+    }
+  }, [symbolIds.length]);
 
   useEffect(() => {
     if (isIntersecting && onRefresh) {
@@ -76,7 +94,7 @@ export const StockCardList = memo(({
     count: rowCount,
     getScrollElement,
     estimateSize,
-    overscan: 2,
+    overscan: overscanCount,
     paddingStart: ROW_GAP,
     paddingEnd: ROW_GAP,
     initialRect: { width, height: 800 },
@@ -106,6 +124,10 @@ export const StockCardList = memo(({
     onRefresh: onRefresh ?? (() => Promise.resolve()),
     pullDistance: 100 
   });
+
+  const listStyles = useMemo(() => ({
+    height: `${virtualizer.getTotalSize()}px`,
+  }), [virtualizer.getTotalSize()]);
   
   const containerClasses = useMemo(() => 
     classNames(styles.root, {
@@ -119,52 +141,45 @@ export const StockCardList = memo(({
       [styles.pullIndicatorVisible]: pullState.pulling
     })
   , [pullState.pulling]);
+
+  const renderRow = useCallback(({ key, start, symbols }: VirtualRow) => (
+    <div
+      key={key}
+      className={styles.row}
+      style={{
+        transform: `translateY(${start}px)`,
+        height: CARD_HEIGHT,
+      }}
+    >
+      <div className={styles.rowContent}>
+        {symbols.map((symbolId) => (
+          <div key={symbolId} className={styles.item}>
+            <StockCard
+              key={symbolId}
+              id={symbolId}
+              price={prices[symbolId]}
+              onClick={onStockClick}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  ), [CARD_HEIGHT, prices, onStockClick]);
   
   return (
     <ErrorBoundary fallback={<StockCardListFallback />}>
-      <div 
-        ref={containerRef}
-        className={containerClasses}
-      >
+      <div ref={containerRef} className={containerClasses}>
         <div 
           className={pullIndicatorClasses}
           style={{ opacity: pullState.progress }}
         >
           <div className={styles.refreshIcon} />
         </div>
-
         <div
           className={styles.content}
-          style={{
-            height: `${virtualizer.getTotalSize()}px`,
-          }}
+          style={listStyles}
         >
-          {virtualRows.map(({ key, start, symbols }) => (
-            <div
-              key={key}
-              className={styles.row}
-              style={{
-                transform: `translateY(${start}px)`,
-                height: CARD_HEIGHT,
-              }}
-            >
-              <div className={styles.rowContent}>
-                {symbols.map((symbolId) => (
-                  <div
-                    key={symbolId}
-                    className={styles.item}
-                  >
-                    <StockCard
-                      key={symbolId}
-                      id={symbolId}
-                      price={prices[symbolId]}
-                      onClick={onStockClick}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
+          {virtualRows.map(renderRow)}
         </div>
         <div ref={bottomRef} className={styles.bottomSentinel} />
       </div>

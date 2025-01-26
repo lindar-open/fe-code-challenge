@@ -7,7 +7,6 @@
   transition: opacity var(--animation-timing-normal) var(--animation-easing),
               transform var(--animation-timing-normal) var(--animation-easing);
   will-change: opacity, transform;
-  contain: content;
 }
 
 .enter {

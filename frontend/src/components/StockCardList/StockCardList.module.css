@@ -8,6 +8,7 @@
   scroll-behavior: smooth;
   padding: 0 var(--spacing-lg);
   will-change: scroll-position;
+  overscroll-behavior: none;
   max-width: 100%;
 }
 
@@ -40,8 +41,6 @@
 
 .item {
   width: 100%;
-  min-width: 260px;
-  height: 250px;
   position: relative;
   min-width: 0;
 }

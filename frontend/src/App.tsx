@@ -6,18 +6,7 @@ import {Navbar} from '@/components/Navbar';
 import { usePerformanceTracking } from '@/hooks/performance/usePerformanceTracking';
 import { preloadAssets, createAssetMap, type AssetKey } from '@/utils/assetPreloader';
 
-const initialAssets = [
-  'CompanyIcon', 
-  'IndustryIcon', 
-  'UpArrow', 
-  'DownArrow', 
-  'MarketCapIcon', 
-  'HappyFace', 
-  'NeutralFace', 
-  'SadFace', 
-  'arrowDownIcon', 
-  'arrowUpIcon'
-] as AssetKey[];
+const initialAssets = [] as AssetKey[];
 
 function App() {
   usePerformanceTracking('App');
