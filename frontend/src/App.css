@@ -88,4 +88,8 @@ select {
   .App {
     padding: 2px 14px 0;
   }
+
+  #root {
+    overflow-y: auto;
+  }
 }
