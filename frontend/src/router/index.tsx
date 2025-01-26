@@ -8,6 +8,20 @@ import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 const commonAssets = [] as AssetKey[];
 
+const SuspenseBoundary = ({ children }: { children: React.ReactNode }) => (
+  <Suspense 
+    fallback={
+      <div className="suspense-loader">
+        <Loading aria-label="Loading view..." />
+      </div>
+    }
+  >
+    <ErrorBoundary>
+      {children}
+    </ErrorBoundary>
+  </Suspense>
+);
+
 const Router = () => {
   const location = useLocation();
   const { activeSymbol } = useAppSelector(state => state.store);
@@ -43,9 +57,9 @@ const Router = () => {
             key={path}
             path={path}
             element={
-              <ErrorBoundary>
+              <SuspenseBoundary>
                 <Component />
-              </ErrorBoundary>
+              </SuspenseBoundary>
             }
           />
         ))}
