@@ -17,6 +17,7 @@ export const getAsset = <AssetType = SVGComponent>(id: AssetKey): AssetType => {
 export type PreloadableAsset = {
   asset: SVGComponent | string;
   type: 'svg' | 'png';
+  priority?: boolean;
 };
 
 export type PreloadableAssetMap = {
@@ -42,22 +43,27 @@ export const preloadAssets = async (assetsToLoad: PreloadableAssetMap = DEFAULT_
   try {
     const startTime = performance.now();
 
-    Object.entries(assetsToLoad).forEach(([key, asset]) => {
-      if (!asset) return;
+    const priorityAssets = Object.entries(assetsToLoad).filter(([, asset]) => asset?.priority);
+    const normalAssets = Object.entries(assetsToLoad).filter(([, asset]) => !asset?.priority);
 
-      try {
+    await Promise.all(
+      priorityAssets.map(async ([key, asset]) => {
+        if (!asset) return;
         if (!cachedAssets.has(key as AssetKey)) {
           cachedAssets.set(key as AssetKey, asset.asset);
         }
-        console.debug(`Asset loaded: ${key}`);
-      } catch (error) {
-        console.error(`Failed to load asset ${key}:`, error);
-        throw error;
+      })
+    );
+
+    normalAssets.forEach(([key, asset]) => {
+      if (!asset) return;
+      if (!cachedAssets.has(key as AssetKey)) {
+        cachedAssets.set(key as AssetKey, asset.asset);
       }
     });
 
     const endTime = performance.now();
-    console.debug(`All assets preloaded in ${(endTime - startTime).toFixed(2)}ms`);
+    console.debug(`Assets preloaded in ${(endTime - startTime).toFixed(2)}ms`);
   } catch (error) {
     console.error('Failed to preload assets:', error);
     throw error;
