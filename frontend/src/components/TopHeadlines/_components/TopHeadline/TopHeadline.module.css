@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  background-color: var(--colorWhite);
+  border-radius: var(--border-radius-sm);
+  transition: transform 0.2s var(--ease-out-expo);
+}
+
+.root:hover {
+  transform: translateY(-2px);
+}
+
+.text {
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--colorTextSecondary);
+}

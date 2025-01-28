@@ -1,0 +1,108 @@
+.root {
+  width: 100%;
+  height: calc(100vh - 200px);
+  overflow-y: auto;
+  position: relative;
+  background-color: var(--colorSecondary);
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  padding: 0 var(--spacing-lg);
+  will-change: scroll-position;
+  overscroll-behavior: none;
+  max-width: 100%;
+}
+
+.content {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  margin: 0 auto;
+  will-change: transform;
+}
+
+.row {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.rowContent {
+  display: grid;
+  grid-template-columns: repeat(var(--items-per-row, 3), 1fr);
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 100%;
+}
+
+.item {
+  width: 100%;
+  position: relative;
+  min-width: 0;
+}
+
+.pullIndicator {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-out-expo);
+  z-index: var(--z-index-tooltip);
+  pointer-events: none;
+}
+
+.pullIndicatorVisible {
+  opacity: 1;
+}
+
+.refreshIcon {
+  width: 30px;
+  height: 30px;
+  border: 3px solid var(--colorDark);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 1023px) {
+  .root {
+    height: 55vh;
+    padding: 0 16px;
+  }
+
+  .rowContent {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .item {
+    width: 100%;
+  }
+}
+
+.root::-webkit-scrollbar {
+  width: 8px;
+}
+
+.root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.root::-webkit-scrollbar-thumb {
+  background: var(--colorShadow);
+  border-radius: var(--border-radius-sm);
+}
+
+@keyframes rotate {
+  to { 
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,10 @@
+export { ReactComponent as UpArrow } from '@/assets/up-arrow.svg';
+export { ReactComponent as DownArrow } from '@/assets/down-arrow.svg';
+export { ReactComponent as CompanyIcon } from '@/assets/company.svg';
+export { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
+export { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
+export { ReactComponent as HappyFace } from '@/assets/happy.svg';
+export { ReactComponent as NeutralFace } from '@/assets/neutral.svg';
+export { ReactComponent as SadFace } from '@/assets/sad.svg';
+export { default as arrowDownIcon } from '@/assets/down.webp';
+export { default as arrowUpIcon } from '@/assets/up.webp';

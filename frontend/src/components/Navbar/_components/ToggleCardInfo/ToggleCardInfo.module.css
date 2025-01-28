@@ -1,0 +1,15 @@
+.root {
+  color: var(--colorWhite);
+  margin-right: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox {
+  margin-left: var(--spacing-xs);
+  accent-color: var(--colorPrimary);
+  cursor: pointer;
+}

@@ -1,0 +1,26 @@
+.root {
+  display: flex;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 0.5fr));
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-sm);
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

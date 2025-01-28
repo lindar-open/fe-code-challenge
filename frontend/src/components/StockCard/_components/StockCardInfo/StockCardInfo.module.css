@@ -1,0 +1,22 @@
+.root {
+  background-color: var(--colorWhite);
+  padding: var(--spacing-sm);
+  border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+  transition: background-color var(--animation-timing-normal) var(--animation-easing);
+}
+
+.animated {
+  will-change: transform, opacity;
+}
+
+.detailsContainer {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity var(--animation-timing-normal) var(--animation-easing),
+              transform var(--animation-timing-normal) var(--animation-easing);
+}
+
+.detailsVisible {
+  opacity: 1;
+  transform: translateY(0);
+}

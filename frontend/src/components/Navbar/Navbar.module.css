@@ -1,0 +1,23 @@
+.root {
+  background: var(--colorDark);
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.nav {
+  display: flex;
+  list-style-type: none;
+  gap: var(--spacing-md);
+  margin: 0;
+  padding: var(--spacing-xs);
+}
+
+@media (max-width: 767px) {
+  .nav {
+    gap: var(--spacing-xs);
+  }
+}

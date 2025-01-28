@@ -1,0 +1,23 @@
+.root {
+  background-color: var(--colorDark);
+  border-radius: var(--border-radius-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  box-shadow: var(--shadow-md);
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.time {
+  color: var(--colorWhite);
+  font-size: var(--font-size-xs);
+  margin: 0;
+  opacity: 0.8;
+}
+
+.price {
+  color: var(--colorWhite);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  margin: var(--spacing-xs) 0 0;
+}

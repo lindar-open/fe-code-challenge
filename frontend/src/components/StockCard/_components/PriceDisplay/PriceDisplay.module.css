@@ -1,0 +1,24 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-xs) 0;
+}
+
+.label {
+  font-weight: var(--font-weight-medium);
+  color: var(--colorDark);
+  font-size: var(--font-size-sm);
+}
+
+.value {
+  font-weight: var(--font-weight-bold);
+  color: var(--colorDark);
+  font-size: var(--font-size-md);
+  transition: color var(--animation-timing-quick) var(--animation-easing);
+}
+
+.animated {
+  will-change: color;
+}

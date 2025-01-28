@@ -1,0 +1,31 @@
+.link {
+  color: var(--colorWhite);
+  text-decoration: none;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: all 0.17s var(--ease-out-expo);
+  will-change: background-color, color;
+}
+
+.link:hover {
+  color: var(--colorPrimary);
+}
+
+.activeLink {
+  composes: link;
+  background: var(--colorPrimary);
+  color: var(--colorDark);
+}
+
+.activeLink:hover {
+  color: var(--colorDark);
+}
+
+@media (max-width: 767px) {
+  .link {
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs);
+  }
+}

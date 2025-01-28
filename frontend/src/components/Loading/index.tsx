@@ -1,11 +1,21 @@
-import './loading.css';
 import { memo } from 'react';
-const Loading = () => {
+import styles from './Loading.module.css';
+
+interface LoadingProps {
+  'aria-label'?: string;
+}
+
+export const Loading = memo(({ 'aria-label': ariaLabel = 'Loading...' }: LoadingProps) => {
   return (
-    <div className="loading">
-      <div className="loading__pulse"></div>
+    <div 
+      className={styles.root}
+      role="status"
+      aria-label={ariaLabel}
+      aria-live="polite"
+    >
+      <div className={styles.pulse} />
     </div>
   );
-};
+});
 
-export default memo(Loading);
+Loading.displayName = 'Loading';
