@@ -1,0 +1,9 @@
+.symbolCardHeader {
+	background-color: var(--colorDark);
+	border-radius: 8px 8px 0 0;
+	color: var(--colorWhite);
+	font-weight: 600;
+	font-size: 18px;
+	line-height: 22px;
+	padding: 0 8px;
+}
