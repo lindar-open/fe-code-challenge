@@ -1,12 +1,52 @@
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+	--priceUpdateBoxShadow: 0 0 10px 1px;
+	--priceUpBoxShadow: var(--priceUpdateBoxShadow) #008a2e;
+	--priceDownBoxShadow: var(--priceUpdateBoxShadow) #f00;
+	--priceChangeAnimationDuration: 1s;
+	--symbolCardActiveScaleDiff: 0.05;
+
+	background-color: var(--colorWhite);
+	box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	cursor: pointer;
+	position: relative;
+	padding-bottom: 8px;
+	transition: transform 0.2s;
+}
+
+.symbolCard__content {
+	font-size: 12px;
+	line-height: 15px;
+}
+
+.symbolCard--price-up,
+.symbolCard--price-down {
+	animation-fill-mode: none;
+	animation-duration: var(--priceChangeAnimationDuration);
+	animation-iteration-count: 1;
+}
+
+.symbolCard--price-up {
+	animation-name: priceUp;
+}
+
+.symbolCard--price-down {
+	animation-name: priceDown;
 }
 
 .symbolCard__shake {
-  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+	animation: priceUp var(--priceChangeAnimationDuration) ease-in-out none, shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
+
+.symbolCard--active {
+	transform: scale(calc(1 + var(--symbolCardActiveScaleDiff)));
+	box-shadow: 0 0 10px 1px #000;
+}
+
+.symbolCard--inactive {
+	transform: scale(calc(1 - var(--symbolCardActiveScaleDiff)));
+}
+
 
 @keyframes shake {
   10%,
@@ -35,4 +75,24 @@
   70% {
     transform: translateX(6px);
   }
+}
+
+@keyframes priceUp {
+	0% {
+		box-shadow: var(--priceUpBoxShadow);
+	}
+
+	100% {
+		box-shadow: var(--priceUpBoxShadow);
+	}
+}
+
+@keyframes priceDown {
+	0% {
+		box-shadow: var(--priceDownBoxShadow);
+	}
+
+	100% {
+		box-shadow: var(--priceDownBoxShadow);
+	}
 }
