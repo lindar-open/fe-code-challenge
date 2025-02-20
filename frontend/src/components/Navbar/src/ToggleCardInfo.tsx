@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { toggleShowCardInfo, selectShowCardInfo } from '@/store/dashboardOptionsSlice'; // Adjust the import path
 import './toggleCardInfo.css';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+
 const ToggleCardInfo: React.FC = () => {
   const dispatch = useAppDispatch();
   const showCardInfo = useAppSelector(selectShowCardInfo);
@@ -18,4 +19,4 @@ const ToggleCardInfo: React.FC = () => {
   );
 };
 
-export default ToggleCardInfo;
+export default memo(ToggleCardInfo);

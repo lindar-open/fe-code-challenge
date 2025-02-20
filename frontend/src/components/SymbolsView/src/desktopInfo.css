@@ -1,3 +1,7 @@
+.desktopInfo {
+	margin-bottom: 32px;
+}
+
 @media (max-width: 1023px) {
   .desktopInfo {
     display: none;

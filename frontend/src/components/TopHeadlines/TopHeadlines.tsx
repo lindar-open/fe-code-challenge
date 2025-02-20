@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import './topHeadlines.css';
 
 import Row from '@/components/Row';
@@ -39,4 +39,4 @@ const TopHeadlines = () => {
   );
 };
 
-export default TopHeadlines;
+export default memo(TopHeadlines);
