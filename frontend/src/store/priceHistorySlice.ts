@@ -1,19 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '@/store/index';
 
-type historyEntry = {
+type HistoryEntry = {
   time: number;
   price: number;
 };
 
 type PriceHistoryResponse = {
   symbol: string | null;
-  history: historyEntry[];
+  history: HistoryEntry[];
 };
 
 type PriceHistoryState = {
   symbol: string | null;
-  history: historyEntry[];
+  history: HistoryEntry[];
   apiState: {
     loading: boolean | null;
     error: boolean;
@@ -80,3 +80,4 @@ const selectors = {
 
 export default priceHistorySlice;
 export { selectors };
+export type { HistoryEntry };
