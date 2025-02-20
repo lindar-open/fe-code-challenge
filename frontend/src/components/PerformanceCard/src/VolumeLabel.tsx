@@ -3,6 +3,7 @@ import './performanceInfo.css';
 import { ReactComponent as UpArrow } from '@/assets/up-arrow.svg';
 import { ReactComponent as DownArrow } from '@/assets/down-arrow.svg';
 import ListItem from '@/components/ListItem';
+import { marketCapFormatter } from '@/lib';
 
 type TrendLabelProps = {
   volume: number;
@@ -11,6 +12,7 @@ type TrendLabelProps = {
 
 const VolumeLabel = ({ volume, change }: TrendLabelProps) => {
   const arrow = change > 1 ? <UpArrow /> : <DownArrow />;
-  return <ListItem Icon={arrow} label={volume.toString()} />;
+
+  return <ListItem Icon={arrow} label={marketCapFormatter(volume)} />;
 };
 export default memo(VolumeLabel);
