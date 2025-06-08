@@ -1,12 +1,18 @@
-import { useEffect } from 'react';
+import './symbosGrid.css';
+
+import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import SymbolCard from '../SymbolCard';
+
 import { fetchAllStocks, selectors } from '@/store/stocksSlice';
+
+import Card from '../Card';
+
 type SymbolsGridProps = {
   onSymbolClick: (symbolId: string) => void;
+  symbolId: string | null;
 };
 
-const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
+const SymbolsGrid = React.memo(({ onSymbolClick, symbolId }: SymbolsGridProps) => {
   const stockSymbols = useAppSelector(selectors.selectStockIds);
   const prices = useAppSelector((state) => state.prices);
   const dispatch = useAppDispatch();
@@ -14,13 +20,16 @@ const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
     dispatch(fetchAllStocks());
   }, [dispatch]);
 
+  const hasSelected = Boolean(symbolId);
+
   return (
-    <div>
-      {stockSymbols.map((id, i) => (
-        <SymbolCard price={prices[id]} onClick={onSymbolClick} key={i} id={id} />
+    <div className={`symbolsView__cards ${hasSelected ? 'cards__active' : ''}`}>
+      {/* remove (i = index) and add id as the key more predictable and will not run in unexpected behaviours */}
+      {stockSymbols.map((id) => (
+        <Card price={prices[id]} onClick={onSymbolClick} key={id} id={id} symbolId={symbolId} />
       ))}
     </div>
   );
-};
+});
 
 export default SymbolsGrid;

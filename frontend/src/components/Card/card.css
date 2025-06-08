@@ -1,0 +1,63 @@
+.card {
+  flex: 1 1 200px;
+  min-width: 200px;
+  max-width: 350px;
+  border-radius: 4px;
+  background-color: var(--colorWhite);
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.1));
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.card--selected {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 1);
+}
+
+.cards__active .card:not(.card--selected) {
+  transform: scale(0.95);
+}
+
+.card__price--up {
+  box-shadow: 0px 0px 4px 8px rgba(132, 255, 0, 0.3);
+}
+.card__price--down {
+  box-shadow: 0px 0px 4px 8px rgba(255, 0, 0, 0.3);
+}
+.card__shake {
+  animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+@keyframes shake {
+  10%,
+  90% {
+    transform: translateX(-2px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(4px);
+  }
+
+  25%,
+  35%,
+  45%,
+  55%,
+  65%,
+  75% {
+    transform: translateX(-6px);
+  }
+
+  30%,
+  40%,
+  50%,
+  60%,
+  70% {
+    transform: translateX(6px);
+  }
+}

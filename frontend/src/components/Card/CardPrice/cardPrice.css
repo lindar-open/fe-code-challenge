@@ -1,0 +1,15 @@
+.card__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 10px;
+}
+.card__price--text {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.card__price--value {
+  font-size: 1.5rem;
+  font-weight: bold;
+}

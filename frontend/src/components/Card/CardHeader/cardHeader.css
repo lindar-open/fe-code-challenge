@@ -1,0 +1,20 @@
+.card__trend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: var(--colorDark);
+  color: var(--colorWhite);
+  padding: 0.5rem;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.card__icon {
+  position: relative;
+  width: 3.5rem;
+  top: -11px;
+  right: -29px;
+}

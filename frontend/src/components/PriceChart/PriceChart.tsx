@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './priceChart.css';
 import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
@@ -8,12 +8,18 @@ type PriceChartProps = {
   symbolId: string | null;
 };
 
-const PriceChart = ({ symbolId }: PriceChartProps) => {
+const PriceChart = React.memo(({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
+    let promise: { abort: () => void } | undefined;
     if (symbolId) {
-      dispatch(fetchPriceHistory(symbolId));
+      promise = dispatch(fetchPriceHistory(symbolId));
     }
+    return () => {
+      if (promise && promise.abort) {
+        promise.abort();
+      }
+    };
   }, [dispatch, symbolId]);
 
   const apiState = useAppSelector(selectors.apiState);
@@ -40,6 +46,6 @@ const PriceChart = ({ symbolId }: PriceChartProps) => {
       </ResponsiveContainer>
     </div>
   );
-};
+});
 
 export default PriceChart;
