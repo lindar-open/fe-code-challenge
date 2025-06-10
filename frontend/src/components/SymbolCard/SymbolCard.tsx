@@ -10,16 +10,17 @@ type SymbolCardProps = {
   id: string;
   onClick: (symbolId: string) => void;
   price: number;
+  isActive: boolean;
 };
 
-const SymbolCard = ({ id, onClick, price }: SymbolCardProps) => {
+const SymbolCard = ({ id, onClick, price, isActive }: SymbolCardProps) => {
   const { trend, companyName, industry, marketCap } = useAppSelector((state) => state.stocks.entities[id]);
   const showCardInfo = useAppSelector(selectShowCardInfo);
   const handleOnClick = () => {
     onClick(id);
   };
   return (
-    <div onClick={handleOnClick} className="symbolCard">
+    <div onClick={handleOnClick} className={`symbolCard${isActive ? ' symbolCard--active' : ''}`}>
       <div>
         {id} - {trend}
       </div>
