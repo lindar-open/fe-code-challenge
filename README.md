@@ -78,7 +78,7 @@ You need to replicate the functionality and design as closely as possible to wha
   - The Glow states
   - The scaling and glow on user interaction (select/unselected)
   - The trend indicator (red/green arrows)
-  - The implementation of the `SymbolCard` should be as granular as possible, i.e. SymbolCard should be a "smart" component built with "dumb" components.
+  - The implementation of the `SymbolCard` should be as granular as possible, i.e. SymbolCard should be a "smart" component built with "dumb" components. ✅
 - The Cards container
   - Visually
   - The scroll behavior
@@ -106,7 +106,7 @@ You need to replicate the functionality and design as closely as possible to wha
   as possible.** For example:
   - When the effects are active (shaking, glowing, etc.) the children of the component should not be re-rendered.
   - You should avoid re-rendering the whole component when only a part of it needs to be updated.
-  - _(Hint: For the initial bundle size, in [router/index.ts](frontend/src/router/index.tsx), something combined with `Suspense` will get you there.)_
+  - _(Hint: For the initial bundle size, in [router/index.ts](frontend/src/router/index.tsx), something combined with `Suspense` will get you there.)_ ✅
 - **Please ensure that the code you submit reflects your best work and you use best practices.**
 - **The commit history should be granular with descriptive commit comments**
 - **You should write custom CSS (in other words, do not use UI Libraries). Using [BEM methodology](https://getbem.com/naming/) for CSS classes is a nice to have but not required.**

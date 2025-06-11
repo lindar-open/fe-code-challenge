@@ -1,11 +1,9 @@
 import './symbolCard.css';
-import { ReactComponent as CompanyIcon } from '@/assets/company.svg';
-import { ReactComponent as IndustryIcon } from '@/assets/industry.svg';
-import { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
 import { useAppSelector } from '@/hooks/redux';
-import ListItem from '@/components/ListItem';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
-import { formatNumber } from '@/utils/formatNumber';
+import SymbolCardHeader from './SymbolCardHeader';
+import SymbolCardPrice from './SymbolCardPrice';
+import SymbolCardInfo from './SymbolCardInfo';
 
 type SymbolCardProps = {
   id: string;
@@ -20,19 +18,13 @@ const SymbolCard = ({ id, onClick, price, isActive }: SymbolCardProps) => {
   const handleOnClick = () => {
     onClick(id);
   };
+
   return (
     <div onClick={handleOnClick} className={`symbolCard${isActive ? ' symbolCard--active' : ''}`}>
-      <div>
-        {id} - {trend}
-      </div>
-      <div>Price:</div>
-      <div>{formatNumber(price)} </div>
+      <SymbolCardHeader symbol={id} trend={trend} />
+      <SymbolCardPrice price={price} />
       {showCardInfo && (
-        <>
-          <ListItem Icon={<CompanyIcon />} label={companyName} />
-          <ListItem Icon={<IndustryIcon />} label={industry} />
-          <ListItem Icon={<MarketCapIcon />} label={formatNumber(marketCap)} />
-        </>
+        <SymbolCardInfo companyName={companyName} industry={industry} marketCap={marketCap} />
       )}
     </div>
   );

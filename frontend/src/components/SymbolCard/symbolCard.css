@@ -1,11 +1,109 @@
 .symbolCard {
-  border: 2px solid black; /* just for visibility, feel free to remove it */
-  margin: 10px; /* just for visibility, feel free to remove it */
-  padding: 10px; /* just for visibility, feel free to remove it */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 16px 0 rgba(14, 17, 35, 0.1);
+  margin: 8px;
+  min-width: 240px;
+  max-width: 320px;
+  width: auto;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 0 1 260px;
+  box-sizing: border-box;
+}
+
+.symbolCard--active {
+  /* Active state for the symbol card */
 }
 
 .symbolCard__shake {
   animation: shake 0.62s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.symbolCard__header {
+  background: #181c2e;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 12px 16px 10px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 38px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.symbolCard__trendWrapper {
+  margin-left: 8px;
+  display: flex;
+  align-items: flex-start;
+  position: absolute;
+  top: 6px;
+  right: 10px;
+}
+
+.symbolCard__trend {
+  width: 32px;
+  height: 32px;
+  filter: drop-shadow(0 0 8px #7fff7f);
+}
+
+.symbolCard__priceRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 5px;
+}
+
+.symbolCard__priceLabel {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.symbolCard__priceValue {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #181c2e;
+  margin-left: 8px;
+}
+
+.symbolCard__info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 5px;
+}
+
+.symbolCardGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@media (max-width: 1023px) {
+  .symbolCardGrid {
+    gap: 12px;
+  }
+
+  .symbolCard {
+    flex: 1 1 100%;
+    min-width: 90vw;
+    max-width: 100vw;
+    width: 100%;
+  }
 }
 
 @keyframes shake {
