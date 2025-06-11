@@ -83,14 +83,14 @@ You need to replicate the functionality and design as closely as possible to wha
   - Visually
   - The scroll behavior
 - The layout change between desktop and mobile devices.
-- Price chart should be visible only when a card is selected.
-- "+info" functionality (Show/hide the info on the cards)
-- Persistence of the active/selected card when navigating to other tabs.
+- Price chart should be visible only when a card is selected. ✅
+- "+info" functionality (Show/hide the info on the cards) ✅
+- Persistence of the active/selected card when navigating to other tabs. ✅
 - Responsiveness
 - Performance is critical!
-- Formatting of the currency
-- Improve initial loading time (do not try to measure, think of bundle size)
-- Fix race condition (Price History chart)
+- Formatting of the currency ✅
+- Improve initial loading time (do not try to measure, think of bundle size) ✅
+- Fix race condition (Price History chart) ✅
 - Follow established guidelines/practices in the project, such as:
   - Components structure
   - Imports/exports
@@ -151,7 +151,7 @@ The API call functionality is implemented. There is a flaw in the implementation
 **Try to fix this**.
 
 _(Hint: The flaw is in the `useEffect` hook. If for any reason the user has a slow connection,
-sometimes the price chart won't behave as expected)_
+sometimes the price chart won't behave as expected)_ ✅
 
 ### Stock Card
 

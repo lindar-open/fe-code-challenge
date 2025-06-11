@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './priceChart.css';
 import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { fetchPriceHistory, selectors } from '@/store/priceHistorySlice';
+import { fetchPriceHistory, selectors, reset } from '@/store/priceHistorySlice';
 import Loading from '@/components/Loading';
 type PriceChartProps = {
   symbolId: string | null;
@@ -12,7 +12,10 @@ const PriceChart = ({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (symbolId) {
+      dispatch(reset()); 
       dispatch(fetchPriceHistory(symbolId));
+    } else {
+      dispatch(reset());
     }
   }, [dispatch, symbolId]);
 

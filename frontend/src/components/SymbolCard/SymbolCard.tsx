@@ -5,6 +5,7 @@ import { ReactComponent as MarketCapIcon } from '@/assets/market_cap.svg';
 import { useAppSelector } from '@/hooks/redux';
 import ListItem from '@/components/ListItem';
 import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
+import { formatNumber } from '@/utils/formatNumber';
 
 type SymbolCardProps = {
   id: string;
@@ -25,12 +26,12 @@ const SymbolCard = ({ id, onClick, price, isActive }: SymbolCardProps) => {
         {id} - {trend}
       </div>
       <div>Price:</div>
-      <div>{price || '--'} </div>
+      <div>{formatNumber(price)} </div>
       {showCardInfo && (
         <>
           <ListItem Icon={<CompanyIcon />} label={companyName} />
           <ListItem Icon={<IndustryIcon />} label={industry} />
-          <ListItem Icon={<MarketCapIcon />} label={marketCap.toString()} />
+          <ListItem Icon={<MarketCapIcon />} label={formatNumber(marketCap)} />
         </>
       )}
     </div>
