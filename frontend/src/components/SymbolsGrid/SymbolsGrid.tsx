@@ -25,6 +25,7 @@ const SymbolsGrid = ({ onSymbolClick }: SymbolsGridProps) => {
           key={i}
           id={id}
           isActive={id === activeSymbol}
+          isInactive={!!activeSymbol && id !== activeSymbol}
         />
       ))}
     </div>

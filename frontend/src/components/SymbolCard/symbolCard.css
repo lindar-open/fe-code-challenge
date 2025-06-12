@@ -15,7 +15,14 @@
 }
 
 .symbolCard--active {
-  /* Active state for the symbol card */
+  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.8), 0 2px 16px 0 rgba(14, 17, 35, 0.1);
+  transform: scale(1.02);
+  z-index: 1;
+}
+
+.symbolCard--inactive {
+  transform: scale(0.98);
+  z-index: 0;
 }
 
 .symbolCard__shake {
