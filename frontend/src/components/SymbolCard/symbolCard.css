@@ -40,7 +40,6 @@
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-  min-height: 38px;
   box-sizing: border-box;
   position: relative;
 }
@@ -95,6 +94,7 @@
 .symbolCardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-auto-rows: min-content;
   gap: 24px;
   width: 100%;
   align-items: stretch;

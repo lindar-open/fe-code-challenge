@@ -1,12 +1,7 @@
-/*
-  symbolsView.css
-  Responsive layout for SymbolsView: price chart on right (desktop), on top (mobile/tablet)
-*/
-
 .symbolsView {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 110px); /* Adjust for header/navbar */
+  height: calc(100vh - 110px);
   min-height: 0;
 }
 
@@ -20,21 +15,18 @@
 
 .symbolsView__cards {
   background-color: #e2e2e4;
-  flex: 1 1 0;
+  flex: 1 1 auto;
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
   order: 1;
   padding: 20px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .symbolsView__cards::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 .symbolsView__chart {
