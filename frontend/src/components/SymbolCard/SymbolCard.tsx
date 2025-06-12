@@ -5,6 +5,7 @@ import SymbolCardHeader from './SymbolCardHeader';
 import SymbolCardPrice from './SymbolCardPrice';
 import SymbolCardInfo from './SymbolCardInfo';
 import { useFlashEffect } from '@/hooks/useFlashEffect';
+import { useShakeEffect } from '@/hooks/useShakeEffect';
 
 type SymbolCardProps = {
   id: string;
@@ -22,10 +23,12 @@ const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProp
   };
 
   const flashClass = useFlashEffect(price);
+  const { shakeClass } = useShakeEffect(price);
 
   const cardClass = [
     'symbolCard',
     flashClass,
+    shakeClass,
     isActive ? 'symbolCard--active' : '',
     isInactive ? 'symbolCard--inactive' : ''
   ].filter(Boolean).join(' ');
