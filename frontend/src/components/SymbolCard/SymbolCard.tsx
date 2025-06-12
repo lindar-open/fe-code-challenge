@@ -4,6 +4,7 @@ import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
 import SymbolCardHeader from './SymbolCardHeader';
 import SymbolCardPrice from './SymbolCardPrice';
 import SymbolCardInfo from './SymbolCardInfo';
+import { useFlashEffect } from '@/hooks/useFlashEffect';
 
 type SymbolCardProps = {
   id: string;
@@ -20,8 +21,11 @@ const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProp
     onClick(id);
   };
 
+  const flashClass = useFlashEffect(price);
+
   const cardClass = [
     'symbolCard',
+    flashClass,
     isActive ? 'symbolCard--active' : '',
     isInactive ? 'symbolCard--inactive' : ''
   ].filter(Boolean).join(' ');

@@ -15,7 +15,7 @@
 }
 
 .symbolCard--active {
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 1), 0 2px 16px 0 rgba(14, 17, 35, 0.1);
+  box-shadow: 0 4px 26px 0 rgba(0, 0, 0, 0.8), 0 2px 16px 0 rgba(14, 17, 35, 0.1);
   transform: scale(1.02);
   z-index: 1;
 }
@@ -91,17 +91,27 @@
   padding: 5px;
 }
 
+.symbolCard__flash--green {
+  box-shadow: 0 0 16px 4px rgb(42, 161, 42, 0.8);
+  /* animation: symbolCardFlashGreenFade 1.2s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
+.symbolCard__flash--red {
+  box-shadow: 0 0 16px 4px rgba(255, 127, 127, 0.8);
+  /* animation: symbolCardFlashRedFade 1.2s cubic-bezier(0.4, 0, 0.2, 1); */
+}
+
 .symbolCardGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-auto-rows: min-content;
-  gap: 24px;
+  gap: 40px;
   width: 100%;
   align-items: stretch;
   justify-items: stretch;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .symbolCardGrid {
     gap: 12px;
   }
@@ -151,3 +161,21 @@
     transform: translateX(6px);
   }
 }
+
+/* @keyframes symbolCardFlashGreenFade {
+  0% {
+    box-shadow: 0 0 32px 8px rgba(127, 255, 127, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(127, 255, 127, 0);
+  }
+}
+
+@keyframes symbolCardFlashRedFade {
+  0% {
+    box-shadow: 0 0 32px 8px rgba(255, 127, 127, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 127, 127, 0);
+  }
+} */
