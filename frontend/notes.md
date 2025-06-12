@@ -88,3 +88,61 @@
 - Additional code is only loaded as needed, improving performance and user experience.
 
 ---
+
+# 4. Custom Animation Hooks: useFlashEffect & useShakeEffect
+
+**Why custom hooks?**
+
+- To encapsulate animation logic (flash and shake) for stock cards, keeping SymbolCard clean and minimizing re-renders.
+- Each hook tracks price changes using refs and state, and only updates the card's className (not its children or content).
+
+**useFlashEffect**
+
+- Triggers a green or red box-shadow flash when the price increases or decreases.
+- Returns a className string (e.g., 'symbolCard**flash--green' or 'symbolCard**flash--red') for use in the card's class list.
+- Uses refs to track the previous price and a timer to remove the class after the animation duration.
+- Ensures the flash effect takes precedence over the active (black shadow) state.
+
+**useShakeEffect**
+
+- Triggers a shake animation if the price changes by more than 25% (up or down).
+- Returns a className string ('symbolCard\_\_shake') for use in the card's class list.
+- Uses refs to track the previous price and a timer to remove the class after the animation duration.
+
+**Why keep them separate?**
+
+- Each effect is independent and may have different triggers and durations.
+- Separation keeps logic simple, reusable, and easy to test or extend.
+- Both hooks are highly efficient: they use refs and state to avoid unnecessary re-renders, and SymbolCard's children are memoized.
+
+**Usage in SymbolCard:**
+
+- Both hooks are called with the current price.
+- The returned classNames are combined in the card's className prop.
+- This approach ensures maximum performance and a clean, maintainable codebase.
+
+---
+
+# 5. Granular SymbolCard Component Structure
+
+**Why granular?**
+
+- Splitting SymbolCard into small, focused subcomponents improves maintainability, testability, and performance.
+- Each subcomponent is responsible for a single part of the card, making the codebase easier to reason about and update.
+
+**How SymbolCard is split:**
+
+- `SymbolCardHeader`: Renders the stock symbol and the trend marker (arrow), using a dedicated `SymbolCardTrendIcon` for the arrow.
+- `SymbolCardPrice`: Displays the formatted price.
+- `SymbolCardInfo`: Shows company name, industry, and market cap, each as a ListItem with an icon.
+- The main `SymbolCard` component only handles layout, click logic, and animation classNames. It does not contain any UI logic for the card's fields.
+
+**Benefits:**
+
+- Each part of the card can be memoized independently, so price flashes or shakes do not cause unnecessary re-renders of the info or header.
+- Easier to test and update individual parts (e.g., changing how the trend icon works does not affect the rest of the card).
+- Keeps SymbolCard clean and focused on composition and interaction, not rendering details.
+
+**Summary:**
+
+- This granular approach is a best practice for React, especially in performance-sensitive UIs like dashboards.

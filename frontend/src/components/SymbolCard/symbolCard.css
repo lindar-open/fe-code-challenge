@@ -109,15 +109,17 @@
   justify-items: stretch;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1280px) {
   .symbolCardGrid {
-    gap: 12px;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
+}
 
-  .symbolCard {
+@media (max-width: 1024px) {
+  */ .symbolCard {
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 16px 0 rgba(14, 17, 35, 0.1);
     margin: 0;
     min-width: 0;
     max-width: 100%;
