@@ -15,7 +15,7 @@
 }
 
 .symbolCard--active {
-  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.8), 0 2px 16px 0 rgba(14, 17, 35, 0.1);
+  box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 1), 0 2px 16px 0 rgba(14, 17, 35, 0.1);
   transform: scale(1.02);
   z-index: 1;
 }
@@ -46,18 +46,20 @@
 }
 
 .symbolCard__trendWrapper {
-  margin-left: 8px;
-  display: flex;
-  align-items: flex-start;
   position: absolute;
-  top: 6px;
-  right: 10px;
+  top: -18px;
+  right: -18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
 }
 
 .symbolCard__trend {
-  width: 32px;
-  height: 32px;
-  filter: drop-shadow(0 0 8px #7fff7f);
+  width: 56px;
+  height: 48px;
+  filter: drop-shadow(0 0 12px #7fff7f);
 }
 
 .symbolCard__priceRow {
