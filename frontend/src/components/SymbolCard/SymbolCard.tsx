@@ -16,13 +16,15 @@ type SymbolCardProps = {
 };
 
 const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProps) => {
-  const { trend, companyName, industry, marketCap } = useAppSelector((state) => state.stocks.entities[id]);
+  const { trend, companyName, industry, marketCap } = useAppSelector(
+    (state) => state.stocks.entities[id]
+  );
   const showCardInfo = useAppSelector(selectShowCardInfo);
   const handleOnClick = () => {
     onClick(id);
   };
 
-  const flashClass = useFlashEffect(price);
+  const { flashClass } = useFlashEffect(price);
   const { shakeClass } = useShakeEffect(price);
 
   const cardClass = [
@@ -31,7 +33,9 @@ const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProp
     shakeClass,
     isActive ? 'symbolCard--active' : '',
     isInactive ? 'symbolCard--inactive' : ''
-  ].filter(Boolean).join(' ');
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div onClick={handleOnClick} className={cardClass}>

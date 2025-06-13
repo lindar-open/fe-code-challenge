@@ -25,5 +25,5 @@ export function useFlashEffect(price: number, durationMs = 1200) {
     prevPrice.current = price;
   }, [price, durationMs]);
 
-  return flashClass;
+  return { flashClass };
 }
