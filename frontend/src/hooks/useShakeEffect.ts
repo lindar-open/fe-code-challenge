@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 export function useShakeEffect(price: number, durationMs = 620) {
   const [shakeClass, setShakeClass] = useState('');
   const prevPrice = useRef<number | null>(null);
-  const shakeTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (prevPrice.current === null) {
@@ -17,19 +16,15 @@ export function useShakeEffect(price: number, durationMs = 620) {
     const percentChange = Math.abs(diff) / Math.abs(prev);
     if (percentChange > 0.25) {
       setShakeClass('symbolCard__shake');
-      if (shakeTimeout.current) clearTimeout(shakeTimeout.current);
-      shakeTimeout.current = setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         setShakeClass('');
       }, durationMs);
+      
+      prevPrice.current = price;
+      return () => clearTimeout(timeoutId);
     }
     prevPrice.current = price;
   }, [price, durationMs]);
-
-  useEffect(() => {
-    return () => {
-      if (shakeTimeout.current) clearTimeout(shakeTimeout.current);
-    };
-  }, []);
 
   return { shakeClass };
 }
