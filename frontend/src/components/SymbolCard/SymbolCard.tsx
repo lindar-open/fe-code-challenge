@@ -1,4 +1,4 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import './symbolCard.css';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { selectShowCardInfo, selectActiveSymbol, setActiveSymbol } from '@/store/dashboardOptionsSlice';
@@ -20,10 +20,10 @@ const SymbolCard = memo(({ id }: SymbolCardProps) => {
   const price = useAppSelector((state) => state.prices[id]);
   const activeSymbol = useAppSelector(selectActiveSymbol);
   const showCardInfo = useAppSelector(selectShowCardInfo);
-  
-  const handleOnClick = useCallback(() => {
+
+  const handleOnClick = () => {
     dispatch(setActiveSymbol(id === activeSymbol ? null : id));
-  }, [dispatch, id, activeSymbol]);
+  };
 
   const { flashClass } = useFlashEffect(price);
   const { shakeClass } = useShakeEffect(price);
