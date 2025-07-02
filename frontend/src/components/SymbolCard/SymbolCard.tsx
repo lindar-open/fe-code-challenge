@@ -1,6 +1,7 @@
+import { memo, useCallback, useMemo } from 'react';
 import './symbolCard.css';
-import { useAppSelector } from '@/hooks/redux';
-import { selectShowCardInfo } from '@/store/dashboardOptionsSlice';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { selectShowCardInfo, selectActiveSymbol, setActiveSymbol } from '@/store/dashboardOptionsSlice';
 import SymbolCardHeader from './SymbolCardHeader';
 import SymbolCardPrice from './SymbolCardPrice';
 import SymbolCardInfo from './SymbolCardInfo';
@@ -9,25 +10,28 @@ import { useShakeEffect } from '@/hooks/useShakeEffect';
 
 type SymbolCardProps = {
   id: string;
-  onClick: (symbolId: string) => void;
-  price: number;
-  isActive: boolean;
-  isInactive: boolean;
 };
 
-const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProps) => {
+const SymbolCard = memo(({ id }: SymbolCardProps) => {
+  const dispatch = useAppDispatch();
   const { trend, companyName, industry, marketCap } = useAppSelector(
     (state) => state.stocks.entities[id]
   );
+  const price = useAppSelector((state) => state.prices[id]);
+  const activeSymbol = useAppSelector(selectActiveSymbol);
   const showCardInfo = useAppSelector(selectShowCardInfo);
-  const handleOnClick = () => {
-    onClick(id);
-  };
+  
+  const handleOnClick = useCallback(() => {
+    dispatch(setActiveSymbol(id === activeSymbol ? null : id));
+  }, [dispatch, id, activeSymbol]);
 
   const { flashClass } = useFlashEffect(price);
   const { shakeClass } = useShakeEffect(price);
 
-  const cardClass = [
+  const isActive = id === activeSymbol;
+  const isInactive = !!activeSymbol && id !== activeSymbol;
+
+  const cardClass = useMemo(() => [
     'symbolCard',
     flashClass,
     shakeClass,
@@ -35,7 +39,7 @@ const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProp
     isInactive ? 'symbolCard--inactive' : ''
   ]
     .filter(Boolean)
-    .join(' ');
+    .join(' '), [flashClass, shakeClass, isActive, isInactive]);
 
   return (
     <div onClick={handleOnClick} className={cardClass}>
@@ -46,5 +50,5 @@ const SymbolCard = ({ id, onClick, price, isActive, isInactive }: SymbolCardProp
       )}
     </div>
   );
-};
+});
 export default SymbolCard;

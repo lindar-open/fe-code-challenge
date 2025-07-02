@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import './priceChart.css';
 import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { fetchPriceHistory, selectors, reset } from '@/store/priceHistorySlice';
+import { fetchPriceHistory, selectors } from '@/store/priceHistorySlice';
 import Loading from '@/components/Loading';
 type PriceChartProps = {
   symbolId: string | null;
@@ -10,14 +10,14 @@ type PriceChartProps = {
 
 const PriceChart = ({ symbolId }: PriceChartProps) => {
   const dispatch = useAppDispatch();
+  const prevSymbolRef = useRef<string | null>(null);
+
   useEffect(() => {
-    if (symbolId) {
-      dispatch(reset()); 
+    if (symbolId && symbolId !== prevSymbolRef.current) {
+      prevSymbolRef.current = symbolId;
       dispatch(fetchPriceHistory(symbolId));
-    } else {
-      dispatch(reset());
     }
-  }, [dispatch, symbolId]);
+  }, [symbolId, dispatch]);
 
   const apiState = useAppSelector(selectors.apiState);
   const data = useAppSelector(selectors.selectPriceHistory);
